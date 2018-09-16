@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/animate.min.css" />
+    <style>
+    html{
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+    body{
+      height: 100%;
+      overflow: hidden;
+      background: -webkit-linear-gradient(bottom right, #84DDFB , #44BAF9);
+      background: linear-gradient(to top left, #84DDFB , #44BAF9);
+    }
+    input{
+      background-color: rgba(255,255,255,0)!important;
+    }
+    input::-webkit-input-placeholder{
+      transition: .3s;
+        color:rgba(255,255,255,0.7);
+    }
+    input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
+      transition: .3s;
+        color:rgba(255,255,255,0.7);
+    }
+    .my-login-header{
+      width:100%;
+      position: fixed;
+      z-index: 999;
+    }
+    .aui-bar-nav {
+          background-color: rgba(255,255,255,0);
+      }
+    .back-btn{
+      background-color: rgba(102, 102, 102);
+      border-radius:50%;
+      height:1.2rem;width:1.2rem;
+      padding-top: 0.2rem;
+      padding-left: 0.15rem;
+    }
+    .input-box{
+      font-size: 0.7rem !important;
+      color: #fff !important;
+    }
+    .logo{
+      display: block;
+      margin:0 auto;
+      margin-top: 7.5rem;
+    }
+    .input-flex{
+      min-height: 2.6rem;
+      background-color: rgba(255,255,255,0.1);
+      transition: .5s;
+      -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: justify;
+        -webkit-justify-content: flex-start;
+            justify-content: flex-start;;
+        -webkit-flex-wrap:nowrap;
+            flex-wrap: nowrap;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+            align-items: center;
+    }
+    .input-flex-focus{
+      background-color: rgba(255,255,255,0.25);
+      transition: .5s;
+    }
+    .input-content{
+      width: 100%;
+      padding: 0;
+      margin-left: 1.2rem;
+      -webkit-box-flex: 1;
+              box-flex: 1;
+      -webkit-flex-shrink: 1;
+              flex-shrink: 1;
+    }
+    .sign-in-btn{
+      margin:0 auto;
+      margin-top:2.2rem;
+      height: 2.0rem;
+      width: 5.2rem;
+      border-radius: 0.4rem;
+      background-color: rgba(255, 255, 255, 0.8);
+      text-align: center;
+      font-size: 0.7rem;
+      color: #51BAEA;
+      line-height: 2.0rem;
+    }
+    .footer_csdn{
+    margin:1px 0px 8px 0px;
+    clear:both;
+    position:absolute;
+    padding:1px 0px 1px 0px;
+    bottom:0;
+    text-align:center;
+    color:rgba(255,255,255,1);
+    font-size: 12px;
+    width:100%;
+    }
+    </style>
+</head>
+<body>
+  <header class="aui-bar aui-bar-nav my-login-header" id="login-header">
+    <a class="aui-pull-left aui-btn">
+      <div class="back-btn" onclick="goBack()"><img src="../image/Trealent/arrow-left-login.png" style="height:1rem;width:1rem;"></img></div>
+    </a>
+</header>
+  <img src="../image/Trealent/logo_fffbg.png" style="height:2.5rem;" class="logo"></img>
+  <div id="username-box" class="input-flex" style="margin-top:3.6rem;">
+    <div><img src="../image/Trealent/me.png" style="height:1rem;margin-left:0.8rem;"></img></div>
+    <div class="input-content"><input name="username" class="input-box" type="text" placeholder="用户名/手机号"></div>
+  </div>
+  <div id="password-box" class="input-flex" style="margin-top:1.4rem;">
+    <div><img src="../image/Trealent/password.png" style="height:0.94rem;margin-left:0.8rem;"></img></div>
+    <div class="input-content"><input name="password" class="input-box" type="password" placeholder="请输入密码"></div>
+  </div>
+  <div class="sign-in-btn" id="signInbtn" onclick="signIn()">
+    登陆
+  </div>
+  <div class="footer_csdn" tapmode >忘记密码?</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/aui-tab.js" ></script>
+<script type="text/javascript" src="../script/aui-toast.js"></script>
+<script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="../script/trealent-client.js"></script>
+<script type="text/javascript">
+    apiready=function(){
+      $api.fixStatusBar($("#login-header").get(0));
+      $("input[name='username']").focus(function(){
+        $("#username-box").addClass("input-flex-focus");
+      });
+      $("input[name='username']").blur(function(){
+        $("#username-box").removeClass("input-flex-focus");
+      });
+      $("input[name='password']").focus(function(){
+        $("#password-box").addClass("input-flex-focus");
+      });
+      $("input[name='password']").blur(function(){
+        $("#password-box").removeClass("input-flex-focus");
+      });
+      api.addEventListener({
+          name:'viewappear'
+      }, function(ret, err){
+         api.setStatusBarStyle({
+             style: 'light',
+         });
+      });
+      if($api.getStorage("trealent_user_username")){
+      $("input[name='username']").val($api.getStorage("trealent_user_username"));
+    }
+    }
+    document.body.addEventListener('touchmove', function (event) {
+        event.preventDefault();
+    }, false);
+
+    function goBack(){
+      api.closeWin({
+        animation:{
+          type:"push",
+          subType:"from_left",
+          duration:300
+        }
+    });
+    }
+
+    function signIn(){
+
+      var username=$("input[name='username']").val();
+      var password=$("input[name='password']").val();
+      checkOut(username,password);
+      tlClient.user.login(username, password, function(ret,err){
+        if(ret&&ret.code==200){
+          $("#signInbtn").text("登陆中...")
+          api.toast({
+              msg: ret.msg,
+              duration: 2000,
+              global:true,
+          });
+          tlClient.user.getprofile();
+          api.closeWin({
+            name:'loginOrregister'
+          });
+          api.closeWin({
+            animation:{
+              type:'movein',
+              subType:'from_bottom',
+              duration:300
+            }
+          });
+        }
+        else if(ret&&ret.code==401||ret&&ret.code==402||ret&&ret.code==403){
+          api.toast({
+              msg: ret.msg,
+              duration: 2000,
+          });
+        }
+        else{
+          api.toast({
+              msg: '出问题啦！请稍后登陆',
+              duration: 2000,
+          });
+        }
+      });
+    /*  var username=$("input[name='username']").val();
+      var password=$("input[name='password']").val();
+      if(checkOut(username,password)==false){return;}
+      api.ajax({
+          url: 'http://192.168.31.70/api/user/login',
+          method: 'post',
+          data: {
+              values: {
+                  username:username,
+                  password:password,
+              },
+          }
+      },function(ret, err){
+        if(ret&&ret.code==200){
+          $("#signInbtn").text("登陆中...")
+          api.toast({
+              msg: ret.msg,
+              duration: 2000,
+              global:true,
+          });
+          $api.setStorage("trealent_user_id", ret.data.id);
+          $api.setStorage("trealent_user_username", ret.data.username);
+          $api.setStorage("trealent_user_type", ret.data.type);
+          $api.setStorage("trealent_user_token", ret.data.token);
+          api.closeWin({
+            name:'loginOrregister'
+          });
+          api.closeWin({
+            animation:{
+              type:'movein',
+              subType:'from_bottom',
+              duration:300
+            }
+          });
+
+        }
+        else if(ret&&ret.code==401||ret&&ret.code==402||ret&&ret.code==403){
+          api.toast({
+              msg: ret.msg,
+              duration: 2000,
+          });
+        }
+        else{
+          api.toast({
+              msg: '出问题啦！请稍后登陆',
+              duration: 2000,
+          });
+        }
+      });*/
+
+      api.closeWin({
+        name:'loginOrregister'
+      });
+      api.closeWin({
+        animation:{
+          type:'movein',
+          subType:'from_bottom',
+          duration:300
+        }
+      });
+    }
+    function checkOut(username,password){
+      if(username.length==0){
+        api.toast({
+            msg: '没有输入用户名',
+            duration: 2000,
+        });
+        $("#username-box").addClass("animated tada");
+        setTimeout(function(){
+          $("#username-box").removeClass("animated tada");
+        },1000);
+        return false;
+      }
+      else if(password.length==0){
+        api.toast({
+            msg: '没有输入密码',
+            duration: 2000,
+        });
+        $("#password-box").addClass("animated tada");
+        setTimeout(function(){
+          $("#password-box").removeClass("animated tada");
+        },1000);
+        return false;
+      }
+      else if(username.length<=4){
+        api.toast({
+            msg: '用户名太短了',
+            duration: 2000,
+        });
+        return false;
+      }
+      else if(username.length>=33){
+        api.toast({
+            msg: '用户名太长了',
+            duration: 2000,
+        });
+        return false;
+      }
+      else if(password.length<=7){
+        api.toast({
+            msg: '密码太短了',
+            duration: 2000,
+        });
+        return false;
+      }
+      else if(password.length>=41){
+        api.toast({
+            msg: '密码太长了',
+            duration: 2000,
+        });
+        return false;
+      }
+    }
+</script>
+</html>

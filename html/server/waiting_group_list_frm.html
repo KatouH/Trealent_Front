@@ -1,0 +1,371 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+    <style>
+    .my_padding{
+      height: 20px;
+    }
+    .padding{
+      height: 20px;
+    }
+    .user-card{
+      width: 90%;
+      box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.05), 0 4px 10px 0 rgba(0, 0, 0, 0.05);
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 10px;
+    }
+    .user-card-red{
+      background: -webkit-linear-gradient(bottom right, #F78D91 , #FCA2A6);
+      background: linear-gradient(to top left, #F78D91 , #FCA2A6);
+    }
+    .user-card-green{
+      background: -webkit-linear-gradient(bottom right, #74DFBD , #9BEDD3);
+      background: linear-gradient(to top left, #74DFBD , #9BEDD3);
+    }
+    .user-card-orange{
+      background: -webkit-linear-gradient(bottom right, #FBB57C , #FCD69C);
+      background: linear-gradient(to top left, #FBB57C , #FCD69C);
+    }
+    .user-avatar{
+      width: 50px;
+      height: 50px;
+      align-self: center;
+      position: absolute;
+    }
+    .user-name{
+      text-align: left;
+      line-height: 25px;
+      font-size: 16px;
+      font-weight: 300;
+      align-self: center;
+    }
+    .take-user-button{
+      font-size: 16px;
+      font-weight: 300;
+      text-align: center;
+      color: #fff;
+      align-self: center;
+      background-color: #03a9f4;
+      border-radius: 3px;
+      float: right;
+    }
+    .user-resume{
+      font-size: 14px;
+      font-weight: 400;
+      color: #999;
+    }
+    .user-resume-title{
+      font-size: 16px;
+      font-weight: 400;
+      color: #444;
+    }
+    .card-footer{
+      display: flex;
+      height: 50px;
+      width: 100%;
+    }
+    .card-footer-item{
+      font-size: 14px;
+      font-weight: 400;
+      color: #fff;
+      text-align: center;;
+      align-self: center;
+    }
+    .aui-card-list-more{
+        font-size:14px;
+        line-height: 14px;
+        min-height: 14px;
+        color:#BCBCBC !important;
+    }
+    .loading-mask{
+      position: absolute;
+      z-index: 1000;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255,255,255,1);
+    }
+    .loading{
+      margin: 0.75rem auto;
+      height: 1.3rem;
+      width: 1.3rem;
+    }
+  </style>
+</head>
+<body>
+<div id="loading-mask" class="loading-mask"><img src="../../image/Trealent/bars_normal.svg" class="loading"></div>
+<div id="group_list"></div>
+  <div class="padding"></div>
+</body>
+
+<script type="text/javascript" src="../../script/doT.min.js" ></script>
+<script id="tpl_group_list"  type="text/dot-tpl">
+  <div id="card-box">
+  {{~it:value:index}}
+  <div class="my_padding"></div>
+    <div class="aui-card-list user-card">
+      <div class="aui-card-list-header aui-card-list-user aui-border-b {{= type_return(value.user.userResume?value.user.userResume.resume_type:null).bgColor}}">
+          <div class="aui-card-list-user-avatar">
+              <img src="{{= value.user.avatar}}" class="aui-img-round" />
+          </div>
+          <div class="aui-card-list-user-name">
+              <div>{{=value.user.username}}</div>
+              <small style="color:#FFF">华东师范大学</small>
+          </div>
+          <div class="aui-card-list-user-info" style="color:#FFF;">{{=type_return(value.user.userResume?value.user.userResume.resume_type:null).type}}</div>
+      </div>
+      <div class="aui-card-list-content-padded aui-border-b aui-border-t user-resume">
+        <div class="user-resume-title">{{=value.user.userResume?value.user.userResume.resume_title:"其他"}}</div>
+          在学校多次参加社团活动，有一年以上推送制作经验。排版追求视觉上的舒适的同时凸显关键信息，推送内容层次鲜明。同时自行制作剪辑视频，获得校园比赛一等奖。
+          <div class="padding"></div>
+        <div class="user-resume-title">作品展示</div>
+        <div class="aui-row aui-row-padded">
+            <div class="aui-col-xs-4">
+                <img src="../../image/Trealent/user_resume_demo3.png"/>
+            </div>
+            <div class="aui-col-xs-4">
+                <img src="../../image/Trealent/user_resume_demo3.png"/>
+            </div>
+            <div class="aui-col-xs-4">
+                <img src="../../image/Trealent/user_resume_demo3.png"/>
+            </div>
+        </div>
+        <div class="my_padding"></div>
+      </div>
+      <div class="card-footer {{=type_return(value.user.userResume?value.user.userResume.resume_type:null).bgColor}}">
+          <div class="card-footer-item aui-col-xs-4"tapmode onclick="openDialog()">联系TA</div>
+          <div class="card-footer-item aui-col-xs-4"tapmode onclick="doreject()">拒绝投标</div>
+          <div class="card-footer-item aui-col-xs-4" id="{{=value.id}}"tapmode onclick="doConfirm(this.id)">接受投标</div>
+      </div>
+    </div>
+  {{~}}
+  {{? index==9}}
+      <div class="aui-text-center aui-card-list-footer aui-card-list-more">加载更多</div>
+  {{??}}
+      <div class="aui-text-center aui-card-list-footer aui-card-list-more">没了欸~</div>
+  {{?}}
+  </div>
+  </div>
+</script>
+
+
+<script id="tpl_group_listMore"  type="text/dot-tpl">
+  <div>
+  {{~it:value:index}}
+  <div class="my_padding"></div>
+    <div class="aui-card-list user-card">
+      <div class="aui-card-list-header aui-card-list-user aui-border-b {{= type_return(value.user.userResume?value.user.userResume.resume_type:null).bgColor}}">
+          <div class="aui-card-list-user-avatar">
+              <img src="{{= value.user.avatar}}" class="aui-img-round" />
+          </div>
+          <div class="aui-card-list-user-name">
+              <div>{{=value.user.username}}</div>
+              <small style="color:#FFF">华东师范大学</small>
+          </div>
+          <div class="aui-card-list-user-info" style="color:#FFF;">{{=type_return(value.user.userResume?value.user.userResume.resume_type:null).type}}</div>
+      </div>
+      <div class="aui-card-list-content-padded aui-border-b aui-border-t user-resume">
+        <div class="user-resume-title">{{=value.user.userResume?value.user.userResume.resume_title:"其他"}}</div>
+          在学校多次参加社团活动，有一年以上推送制作经验。排版追求视觉上的舒适的同时凸显关键信息，推送内容层次鲜明。同时自行制作剪辑视频，获得校园比赛一等奖。
+          <div class="padding"></div>
+        <div class="user-resume-title">作品展示</div>
+        <div class="aui-row aui-row-padded">
+            <div class="aui-col-xs-4">
+                <img src="../../image/Trealent/user_resume_demo3.png"/>
+            </div>
+            <div class="aui-col-xs-4">
+                <img src="../../image/Trealent/user_resume_demo3.png"/>
+            </div>
+            <div class="aui-col-xs-4">
+                <img src="../../image/Trealent/user_resume_demo3.png"/>
+            </div>
+        </div>
+        <div class="my_padding"></div>
+      </div>
+      <div class="card-footer {{=type_return(value.user.userResume?value.user.userResume.resume_type:null).bgColor}}">
+          <div class="card-footer-item aui-col-xs-4"tapmode onclick="openDialog()">联系TA</div>
+          <div class="card-footer-item aui-col-xs-4"tapmode onclick="doreject()">拒绝投标</div>
+          <div class="card-footer-item aui-col-xs-4" id="{{=value.id}}"tapmode onclick="doConfirm(this.id)">接受投标</div>
+      </div>
+    </div>
+  {{~}}
+  {{? index==9}}
+      <div class="aui-text-center aui-card-list-footer aui-card-list-more">加载更多</div>
+  {{??}}
+      <div class="aui-text-center aui-card-list-footer aui-card-list-more">没了欸~</div>
+  {{?}}
+  </div>
+  </div>
+</script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/aui-tab.js" ></script>
+<script type="text/javascript" src="../../script/aui-toast.js"></script>
+<script type="text/javascript" src="../../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="../../script/aui-dialog.js" ></script>
+<script type="text/javascript" src="../../script/trealent-client.js"></script>
+<script type="text/javascript">
+  var task_id=0
+  var hallCardPage=1;
+  apiready=function(){
+    api.parseTapmode();
+    task_id=api.pageParam.task_id;
+
+    api.setRefreshHeaderInfo({
+        loadingImg: 'widget://image/freshloading.png',
+        bgColor: '#f5f5f5',
+        textColor: '#BCBCBC',
+        textDown: '下拉刷新...',
+        textUp: '松开刷新...',
+        textLoading : '拼命加载中~~',
+    }, function(ret, err) {
+        //在这里从服务器加载数据，加载完成后调用api.refreshHeaderLoadDone()方法恢复组件到默认状态
+        refreshTaskPublished();
+        api.refreshHeaderLoadDone();
+    });
+    initTaskPublished();
+  }
+  var dialog = new auiDialog({})
+  function doConfirm(apply_id){
+    dialog.alert({
+        title:"接受投标",
+        msg:'确认将TA纳入小组',
+        buttons:['取消','确定']
+    },function(ret){
+        if(ret){
+          if(ret.buttonIndex==1){
+            dialog.alert({
+                title:"取消确认",
+                msg:"取消对TA的操作",
+                buttons:['确定']
+            });
+          }
+          else{
+
+            tlClient.user.TaskConfirm(apply_id,function(ret,err){
+              if(ret.code==200){
+                /*dialog.alert({
+                    title:"操作成功",
+                    msg:"成功将TA纳入小组",
+                    buttons:['确定']
+                });*/
+                api.toast({
+                    msg: ret.msg,
+                    duration: 2000,
+                    location: 'bottom'
+                });
+                refreshTaskPublished();
+                api.execScript({
+                    name: 'root',
+                    frameName: 'my',
+                    script: 'initTaskCounts();'
+                });
+              }
+              else if((ret.code==401)||(ret.code==402)){
+                api.toast({
+                    msg: ret.msg,
+                    duration: 2000,
+                    location: 'bottom'
+                });
+              }
+            })
+          }
+        }
+    })
+  }
+
+
+  function initTaskPublished(){
+    tlClient.task.getWatingGroupList(task_id,function(ret,err){
+      if(ret&&ret.code==200){
+        var interText = doT.template($("#tpl_group_list").text());
+        $("#group_list").after(interText(ret.data));
+        $("#card-box").attr("id","freshCard");
+        hallCardPage++;
+      }
+      else if((ret&&ret.code==401)||(ret&&ret.code==402)){
+        api.toast({
+            msg: ret.msg,
+            duration: 2000,
+            location: 'bottom'
+        });
+      }
+      else{
+        api.toast({
+            msg: '网络错误',
+            duration: 2000,
+            location: 'bottom'
+        });
+
+      }
+    })
+
+    $("#loading-mask").fadeOut(600,function(){
+    })
+  }
+  function refreshTaskPublished(){
+    tlClient.task.getWatingGroupList(task_id,function(ret,err){
+      var interText = doT.template($("#tpl_group_list").text());
+      $("#freshCard").attr("id","freshCardRemove");
+      $("#freshCardRemove").fadeOut(300,function(){
+        $("#freshCardRemove").remove();
+        $("#group_list").after(interText(ret.data));
+        $("#card-box").attr("id","freshCard");
+      });
+    })
+    hallCardPage=2;
+  }
+  function bottomPullRefresh(){
+      if($(".aui-card-list-more").text()=="加载更多"){
+          $(".aui-card-list-more").text("拼命加载中...");
+          bottomFresh();
+      }
+  }
+  function bottomFresh(){
+    tlClient.task.getWatingGroupList(task_id,hallCardPage++,function(ret,err){
+      $(".aui-card-list-more").remove();
+      var EncodeText = doT.template($("#tpl_group_listMore").text());
+      $("#freshCard").append(EncodeText(ret.data));
+      api.parseTapmode();
+    })
+  }
+
+
+  function type_return(type){
+    switch (type) {
+      case 1:
+        return {
+          'type':"设计",
+          'bgColor':"user-card-green"
+        };
+        break;
+      case 2:
+        return {
+          'type':"开发",
+          'bgColor':"user-card-orange"
+        };
+        break;
+      case 3:
+        return {
+          'type':"多媒体",
+          'bgColor':"user-card-red"
+        };
+        break;
+      case 4:
+        return {
+          'type':"文案",
+          'bgColor':"user-card-green"
+        };
+        break;
+      default:
+        return {
+          'type':"其他",
+          'bgColor':"user-card-green"
+        };
+    }
+  }
+</script>
+</html>

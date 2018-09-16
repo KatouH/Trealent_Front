@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css" />
+    <style>
+    img{
+      width: 200px;
+      height: 80px;
+    }
+    .aui-topbar{
+      display: -webkit-box;
+      -webkit-box-pack: center;
+      -webkit-box-align: center;
+      height: 2rem;
+      overflow: hidden;
+      width: 100%;
+      background-color: #FFF;
+      color: #9e9e9e;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+  }
+  .aui-topbar.support{
+      background-color:rgba(255,255,255,0.7);
+      -webkit-backdrop-filter: brightness(1) blur(20px);
+      backdrop-filter: blur(20px);
+  }
+  .aui-text-main{
+      color:#01ccf9;
+  }
+  .aui-active{
+      color:#01ccf9;
+  }
+  </style>
+</head>
+<body>
+    <div class="aui-tab" id="task-tab">
+        <div class="aui-tab-item aui-active">待处理</div>
+        <div class="aui-tab-item"><div></div>已完成</div>
+        <div class="aui-tab-item">投标的</div>
+        <div class="aui-tab-item">关注的</div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/aui-tab.js" ></script>
+<script type="text/javascript" src="../../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+function initTaskFrame(){
+  var taskheader_h=$api.offset($api.byId('task-tab')).h;
+  var taskframes = [
+  {
+    name:'task_waiting',
+    url:'./task_waiting.html',
+    bounces:true
+  },
+  {
+    name:'task_finished',
+    url:'./task_finished.html',
+    bounces:true
+  },
+  {
+    name:'task_tender',
+    url:'./task_tender.html',
+    bounces:true
+  },
+  {
+    name:'task_attention',
+    url:'./task_attention.html',
+    bounces:true
+  }
+];
+</script>
+</html>

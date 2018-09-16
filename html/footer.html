@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <style>
+    	body{
+    	   background-color:rgba(0,0,0,0);
+    	}
+    	#footer{
+    	   border-top:1px solid #DCDCDC;
+         background-color: #FCFCFC;
+    	}
+    	#footer.support{
+    	   background-color:rgba(247,247,247,0.83);
+    	   -webkit-backdrop-filter: brightness(1) blur(20px);
+    	   backdrop-filter: blur(20px);
+    	   border-top:0.5px solid #DCDCDC;
+    	}
+
+    </style>
+</head>
+<body>
+    <footer class="aui-bar aui-bar-tab" id="footer">
+        <div class="aui-bar-tab-item aui-active" tapmode>
+            <img src="../image/Trealent/home_hover.png" id="footer-hall" style="height:1.2rem;width:1.2rem;margin:0 auto;margin-top:0.2rem;margin-bottom:0.1rem;"></img>
+            <div class="aui-bar-tab-label" style="font-size:0.5rem;">大厅</div>
+        </div>
+        <div class="aui-bar-tab-item" tapmode>
+            <div class="aui-badge">9</div>
+            <img src="../image/Trealent/alarm.png" id="footer-msg" style="height:1.2rem;width:1.2rem;margin:0 auto;margin-top:0.2rem;margin-bottom:0.1rem;"></img>
+            <div class="aui-bar-tab-label" style="font-size:0.5rem;">消息</div>
+        </div>
+        <div class="aui-bar-tab-item" tapmode>
+            <div class="aui-dot"></div>
+            <img src="../image/Trealent/me.png" id="footer-my" style="height:1.2rem;width:1.2rem;margin:0 auto;margin-top:0.2rem;margin-bottom:0.1rem;"></img>
+            <div class="aui-bar-tab-label" style="font-size:0.5rem;">我的</div>
+        </div>
+    </footer>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/aui-tab.js" ></script>
+<script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		var tab = new auiTab({
+            element:document.getElementById("footer")
+        },function(ret){
+            if(ret){
+              switch (ret.index) {
+                case 1:
+                  $("#footer-hall").attr("src","../image/Trealent/home_hover.png");
+                  $("#footer-msg").attr("src","../image/Trealent/alarm.png");
+                  $("#footer-my").attr("src","../image/Trealent/me.png");
+                  break;
+                case 2:
+                  $("#footer-hall").attr("src","../image/Trealent/home.png");
+                  $("#footer-msg").attr("src","../image/Trealent/alarm_hover.png");
+                  $("#footer-my").attr("src","../image/Trealent/me.png");
+                  break;
+                case 3:
+                  $("#footer-hall").attr("src","../image/Trealent/home.png");
+                  $("#footer-msg").attr("src","../image/Trealent/alarm.png");
+                  $("#footer-my").attr("src","../image/Trealent/me_hover.png");
+                  break;
+                default:
+
+              }
+                api.closeFrame({
+                    name:'map_popuplist'
+                });
+                if(ret.index==2){
+                  api.execScript({
+                      frameName:'task',
+                      script: 'set_task_visible(true)'
+                  });
+                }
+                else{
+                  api.execScript({
+                    frameName:'task',
+                      script: 'set_task_visible(false)'
+                  });
+                }
+                api.execScript({
+	                script: 'openTab('+ret.index+');'
+                });
+            }
+        });
+        if(api.systemType=='ios' && parseInt(api.systemVersion)>=9){
+            $("#footer").addClass("support");
+        }else{
+            //$("#footer").addClass("aui-border-t");
+        }
+	};
+</script>
+</html>

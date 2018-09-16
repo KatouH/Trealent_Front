@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+</head>
+<style>
+      html{
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+      }
+      body{
+        height: 100%;
+      }
+      .footer_csdn{
+      background-color: #fff;
+      margin:1px 0px 0px 0px;
+      padding:1px 0px 1px 0px;
+      display: block;
+      clear:both;
+      position:absolute;
+      bottom:0;
+      text-align:center;
+      color:rgba(0,0,0,1);
+      font-size: 20px;
+      height: 40px;
+      width:100%;
+      border: 1px solid #000;
+      }
+      input{
+        height: 100px;
+        background-color: rgba(255,255,255,0)!important;
+      }
+</style>
+<body>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/doT.min.js" ></script>
+<script type="text/javascript" src="../script/jquery-3.3.1.min.js" ></script>
+<script type="text/javascript">
+    var headerHeight = 0;
+    apiready = function(){
+      /*var inputField = api.require('inputField');
+      inputField.open({
+          bgColor: '#eee',
+          lineColor: '#fff',
+          fileBgColor: '#fff',
+          borderColor: '#fff',
+          fixedOn: api.frameName,
+          maxLines:3,
+          sendBtn:{
+            bg: '#1595EF',          //字符串类型；发送按钮常态背景色
+            bgHighlight: '#1595EF', //字符串类型；发送按钮点击时的高亮背景色
+            title: '发送',        //字符串类型；发送按钮的标题
+            titleSize: 12,    //数字类型；发送按钮的标题字体大小
+            titleColor: '#fff',  //字符串类型；发送按钮标题文字颜色
+            corner: 5            //数字类型；发送按钮圆角大小
+          }
+      }, function(ret, err) {
+        /*  if (ret) {
+              alert(JSON.stringify(ret));
+          } else {
+              alert(JSON.stringify(err));
+          }
+      });*/
+      api.openFrame({
+          name: 'personalCardFrame',
+          url: './personal_card.html',
+          rect: {
+              x: 0,
+              y: 0,
+              w: 'auto',
+              h: api.winHeight
+          },
+          pageParam: {
+              name: 'test'
+          },
+          bounces: true,
+          bgColor: 'rgba(0,0,0,0)',
+          vScrollBarEnabled: true,
+          hScrollBarEnabled: true
+      });
+
+}
+
+    function closeWin(){
+        api.closeWin({
+        });
+    }
+
+    function recieveMsg(){
+      alert("jlajflasdjf");
+    }
+</script>
+</html>

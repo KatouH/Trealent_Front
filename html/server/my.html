@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+    <style>
+    body{
+      background-color: #F7F8FC;
+    }
+    .header-background{
+      height: 180px;
+      width: auto;
+      background: -webkit-linear-gradient(left, #4FACFE , #02D0DA); /* Safari 5.1 - 6.0 */
+      background: linear-gradient(to right, #4FACFE , #02D0DA); /* 标准的语法 */
+    }
+    .header-my{
+      padding:5px 10px 0px 25px;
+      text-align: center;
+      color: #fff;
+      font-size: 16px;
+    }
+    .aui-iconfont {
+    	font-size: 0.9rem;
+    }
+    .user-card{
+      height: 8.8rem;
+      width: 100%;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow:0px 5px 10px rgba(0,0,0,0.05);
+    }
+    .user-avatar{
+      border-radius: 50%;
+      height: 70px;
+      width: 70px;
+      margin-left: auto;
+      margin-right: auto;
+      background-color:#fff;
+      box-shadow:0px 2px 1px #ccc;
+    }
+    .user-avatar-img{
+      border-radius: 50%;
+      margin: 0 auto;
+      padding-top: 4px;
+      height: 62px;
+      width: 62px;
+    }
+    .user-name{
+      font-size: 22px;
+      text-align: center;
+      padding-top: 35px;
+    }
+    .user-star-flex{
+      display: flex;
+      display:-webkit-flex;
+      justify-content: center;
+      -webkit-justify-content:center;
+      margin-top:0.1rem;
+    }
+    .user-detail{
+      display: flex;
+      display: -webkit-flex;
+      justify-content: center;;
+      -webkit-justify-content:center;
+      margin-top: 0.6rem;
+    }
+    .user-detail-item{
+      font-size:24px;
+      color:#94D1FF;
+      padding-right: 0.5rem;
+      padding-left: 0.5rem;
+      border-right: 1px solid #eee;
+    }
+    .user-detail-item-last{
+      font-size:24px;
+      color:#94D1FF;
+      padding-right: 0.5rem;
+      padding-left: 0.5rem;
+    }
+    .user-card-others{
+      height: 2.2rem;
+      width: auto;
+      box-shadow:0px 2px 10px #ddd;
+      background-color: #fff;
+      border-radius: 5px;
+      margin-bottom: 0.4rem;
+      display: flex;
+      display:-webkit-flex;
+      justify-content: space-between;;
+      -webkit-justify-content:space-between;
+    }
+    .user-card-others-content{
+      display: flex;
+      display:-webkit-flex;
+      justify-content: left;
+      -webkit-justify-content:left;
+    }
+    .user-card-others-content-right{
+      display: flex;
+      display:-webkit-flex;
+      justify-content: right;
+      -webkit-justify-content:right;
+    }
+    .user-card-others img{
+      margin:0.4rem 0 0 1.0rem;
+      height: 1.3rem;
+      width: 1.3rem;
+    }
+    .user-card-others-content p{
+      margin:0.5rem 0 0 0.3rem;
+      font-size:0.75rem;
+    }
+    .user-card-others-content-right p{
+      margin:0.5rem 0.3rem 0 0;
+      font-size:0.75rem;
+      font-weight: 400;
+      color:#FF8C00;
+    }
+    .aui-pull-right{
+      padding-top: 0.6rem;
+      padding-right: 0.5rem;
+    }
+    .info-content-stars{
+        position: relative;
+        width: 3.5rem;
+        height: 0.7rem;
+        display: block;
+        background-image: url(../../image/Trealent/star_unlit.png);
+        background-repeat: repeat-x;
+        background-position: left;
+        background-size: contain;
+    }
+    .info-content-stars .right-stars-top{
+        width: 70%;
+        height: 0.7rem;
+        display: block;
+        background-image: url(../../image/Trealent/star_lit.png);
+        background-repeat: repeat-x;
+        background-position: left;
+        background-size: contain;
+    }
+    </style>
+</head>
+<body>
+  <div class="header-background" id="myBar">
+    <div class="header-my">我的
+      <div class="aui-iconfont aui-icon-gear" style="float:right;" onclick="openPersonalSetting()"></div>
+    </div>
+    <div style="width:100%;position:absolute;margin-top: 8px;height: 80px;z-index:999"><div class="user-avatar"><div class="user-avatar-img"><img id="my-avatar" src="../../image/Trealent/me_hover.png" style="border-radius:50%;"></div></div></div>
+    <div class="aui-card-list-content" style="padding:50px 15px 0px 15px;">
+      <div class="user-card">
+        <div class="user-name" id="my-username">HeDong</div>
+        <div class="user-star-flex">
+          <div class="info-content-stars">
+              <div class="right-stars-top" id="credoit_star"></div>
+          </div>
+        </div>
+        <div class="user-detail">
+          <div class="user-detail-item" tapmode onclick="openTaskPublishedWin()"><div style="text-align:center;" id="published-count">2</div><div style="color:#000;font-size:0.6rem;text-align:center;">已发布</div></div>
+          <div class="user-detail-item" tapmode onclick="openTaskTenderWin()"><div style="text-align:center;" id="tender-count">1</div><div style="color:#000;font-size:0.6rem;text-align:center;">已中标</div></div>
+          <div class="user-detail-item" tapmode onclick="openTaskGoingWin()"><div style="text-align:center;" id="going-count">0</div><div style="color:#000;font-size:0.6rem;text-align:center;">进行中</div></div>
+          <div class="user-detail-item" tapmode onclick="openTaskWaitingWin()"><div style="text-align:center;" id="waiting-count">0</div><div style="color:#000;font-size:0.6rem;text-align:center;">待确认</div></div>
+          <div class="user-detail-item-last" tapmode onclick="openFinishedWin()"><div style="text-align:center;" id="finished-count">13</div><div style="color:#000;font-size:0.6rem;text-align:center;">已完成</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="aui-card-list-content" style="padding:30px 15px 0px 15px;">
+      <div class="user-card-others" onclick="openMyWallet()">
+        <div class="user-card-others-content">
+          <img src="../../image/Trealent/wallet.png"/>
+          <p>我的钱包</p>
+        </div>
+        <div class="user-card-others-content-right">
+          <p>￥1398.50</p>
+          <div class="aui-iconfont aui-pull-right aui-icon-right"></div>
+        </div>
+      </div>
+      <div class="user-card-others">
+        <div class="user-card-others-content">
+          <img src="../../image/Trealent/flower.png"/>
+          <p>管理评价</p>
+        </div>
+        <div class="aui-iconfont aui-pull-right aui-icon-right"></div>
+      </div>
+      <div class="user-card-others" onclick="openPersonalCard()">
+        <div class="user-card-others-content">
+          <img src="../../image/Trealent/cert.png"/>
+          <p>管理个人名片</p>
+        </div>
+        <div class="aui-iconfont aui-pull-right aui-icon-right"></div>
+      </div>
+      <div class="user-card-others">
+        <div class="user-card-others-content">
+          <img src="../../image/Trealent/feedback.png"/>
+          <p>意见反馈</p>
+        </div>
+        <div class="aui-iconfont aui-pull-right aui-icon-right"></div>
+      </div>
+    </div>
+  </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/aui-tab.js" ></script>
+<script type="text/javascript" src="../../script/aui-toast.js"></script>
+<script type="text/javascript" src="../../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="../../script/trealent-client.js"></script>
+<script type="text/javascript">
+    apiready=function(){
+      $api.fixStatusBar($("#myBar").get(0));
+      api.addEventListener({
+          name:'viewappear'
+      }, function(ret, err){
+         api.setStatusBarStyle({
+             style: 'light',
+         });
+      });
+
+      initMyDom();
+    }
+
+    var user_local_avatar=$api.getStorage("trealent_user_local_avatar");
+    var user_avatar=$api.getStorage("trealent_user_avatar");
+    var user_credit=$api.getStorage('trealent_user_credit');
+    var user_username=$api.getStorage('trealent_user_username');
+    function initMyDom(){
+      initTaskCounts();
+      if($api.getStorage("trealent_user_local_avatar")){$("#my-avatar").attr("src",user_local_avatar+"?"+Date.parse(new Date()));}
+      else if($api.getStorage("trealent_user_avatar")){
+        $("#my-avatar").attr("src",user_avatar);
+      }
+      else{
+        tlClient.user.getprofile();
+        user_local_avatar=$api.getStorage("trealent_user_local_avatar");
+        user_avatar=$api.getStorage("trealent_user_avatar");
+        user_credit=$api.getStorage('trealent_user_credit');
+        user_username=$api.getStorage('trealent_user_username');
+        $("#my-avatar").attr("src",user_avatar);
+      }
+      $("#my-username").text(user_username);
+      $("#credoit_star").css('width',user_credit+"%");
+    }
+
+    function MyAvatarChg(){
+      $("#my-avatar").attr("src",user_local_avatar+"?"+Date.parse(new Date()));
+    }
+
+
+    function initTaskCounts(){
+      tlClient.user.tool.getTaskCounts(function(ret,err){
+        $("#published-count").text(ret.data.publish_count);
+        $("#tender-count").text(ret.data.prefer_count);
+        $("#going-count").text(ret.data.on_going_count);
+        $("#waiting-count").text(ret.data.to_evaluate_count);
+        $("#finished-count").text(ret.data.finish_count);
+      });
+    }
+
+
+    function openMyWallet(){
+      api.openWin({
+          name: 'my_wallet',
+          url: './my_wallet.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+      api.setStatusBarStyle({
+          style: 'dark',
+      });
+    }
+    function openPersonalSetting(){
+      api.openWin({
+          name: 'personalSettingWin',
+          url: '../personal_setting_win.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+    }
+    function openTaskTenderWin(){
+      api.openWin({
+          name: 'task_tender',
+          url: './task_tender.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+    }
+    function openTaskGoingWin(){
+      api.openWin({
+          name: 'task_going',
+          url: './task_going.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+    }
+    function openTaskWaitingWin(){
+      api.openWin({
+          name: 'task_waiting',
+          url: './task_waiting.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+    }
+    function openTaskPublishedWin(){
+      api.openWin({
+          name: 'task_published',
+          url: './task_published.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+
+    }
+    function openFinishedWin(){
+      api.openWin({
+          name: 'task_finished',
+          url: './task_finished.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+    }
+
+    function openPersonalCard(){
+      api.openWin({
+          name: 'personalcard',
+          url: '../personal_card_win.html',
+          pageParam: {
+              name: 'test'
+          },
+      });
+
+    }
+</script>
+</html>

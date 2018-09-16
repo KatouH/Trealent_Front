@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <title>Title</title>
+    <style>
+        body{
+          background-color: #F7F8FC;
+        }
+        .register-vercode-btn {
+            background-color: #fff;
+            border-radius: 1px;
+            border-color: #888;
+            border-width: thin;
+            font-size: 14px;
+            font-weight: 400;
+            text-align: center;
+        } /* Black */
+        .trelent-button{
+            background-color: #32A2f1;
+            font-size: 18px;
+            color: white;
+            text-align: center;
+            height: 2rem;
+            line-height: 45px;
+            border-radius:10px;
+            margin-top: 1.5rem
+        }
+        .register-form{
+            width: 90%;
+            height: auto;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 1.5rem;
+            padding-top: 2.6rem;
+        }
+        .aui-list-item-inner{
+            height: 30px;
+        }
+        .list-style{
+            border 1px solid #000;
+            border-radius:10px;
+            margin-top: 0.5rem;
+        }
+        .distribute-header{
+          position: fixed;
+          z-index: 9;
+
+        }
+    </style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav distribute-header" style="background-color: #ffffff" id="header" >
+      <div tapmode onclick="goBack()" class="aui-pull-left aui-btn"><img src="../image/Trealent/arrow-left-down.png" id="left-btn" style="height:0.9rem;width:0.9rem;"></div>
+      <div class="aui-title" style="font-size: 16px;font-weight: 500;color: #000000;border-radius:10px;">任务发布</div>
+  </header>
+    <div class="register-form">
+        <div class="aui-content aui-margin-b-15 border">
+            <ul class="aui-list aui-form-list"style="border 1px solid #000;border-radius:10px;">
+                <li class="aui-list-item">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-input" style="font-size: 16px;font-weight: 300" >
+                            <input id="task_distribute_title" type="text" placeholder="任务名称" style="font-size: 15px">
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <ul class="aui-list aui-form-list list-style">
+                <li class="aui-list-item">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-input" style="font-size: 16px;font-weight: 300" >
+                            <input id="task_distribute_desc" type="text" placeholder="任务描述" style="font-size: 15px">
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <ul class="aui-list aui-form-list list-style">
+                <li class="aui-list-item">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-input" style="font-size: 16px;font-weight: 300" >
+                            <input id="task_distribute_type" type="text" placeholder="任务种类" style="font-size: 15px">
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <ul class="aui-list aui-form-list list-style">
+                <li class="aui-list-item">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-input" style="font-size: 16px;font-weight: 300" >
+                            <input id="task_distribute_member_num" type="number" placeholder="需要的人数" style="font-size: 15px">
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <ul class="aui-list aui-form-list list-style">
+                <li class="aui-list-item">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-input" style="font-size: 16px;font-weight: 300">
+                            <input readonly  id="task_distribute_sign_up_ddl" type="text" onclick="datePicker('sign_up_ddl')" placeholder="竞标截止时间" style="font-size: 15px">
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <ul class="aui-list aui-form-list list-style">
+                <li class="aui-list-item">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-input" style="font-size: 16px;font-weight: 300" >
+                            <input readonly  id="task_distribute_finish_ddl" type="text" onclick="datePicker('finish_ddl')" placeholder="任务截止时间" style="font-size: 15px">
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <ul class="aui-list aui-form-list list-style">
+                <li class="aui-list-item">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-input" style="font-size: 16px;font-weight: 300" >
+                            <input id="task_distribute_reward" type="number" placeholder="报酬" style="font-size: 15px">
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <ul class="aui-list aui-form-list list-style" style="height: 5rem">
+                <li class="aui-list-item" style="height: 5rem">
+                        <textarea id="task_distribute_content" rows="4" placeholder="任务具体内容" style="font-size: 15px;height: 4rem;font-weight: 300"></textarea>
+                </li>
+            </ul>
+
+        </div>
+        <div class="trelent-button" tapmode onclick="doDistributeTask()" style="margin-bottom:5rem;">确定</div>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/aui-tab.js" ></script>
+<script type="text/javascript" src="../script/aui-toast.js"></script>
+<script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="../script/trealent-client.js"></script>
+<script type="text/javascript">
+    apiready=function(){
+      $api.fixStatusBar($("#header").get(0));
+    }
+
+    function datePicker(s){
+        api.openPicker({
+            type: 'date_time',
+            date: '2018-04-01',
+            title: '选择时间'
+        }, function(ret, err) {
+            var date=ret.year+'-'+ret.month+'-'+ret.day;
+            $("#task_distribute_"+s).val(date);
+            //document.getElementById("task_distribute_"+s).value=date;
+        });
+    }
+
+    function doDistributeTask(){
+        var title= $("#task_distribute_title").val();
+        var desc=$("#task_distribute_desc").val();
+        var type=(type_return($("#task_distribute_type").val())).type;
+        var content= $("#task_distribute_content").val();
+        var member_num= $("#task_distribute_member_num").val();
+        var sign_up_ddl= parseInt(Date.parse($("#task_distribute_sign_up_ddl").val())/1000);
+        var finish_ddl=  parseInt(Date.parse($("#task_distribute_finish_ddl").val())/1000);
+        var reward= $("#task_distribute_reward").val();
+        tlClient.task.creatTask(title,desc,content,type,member_num,sign_up_ddl,finish_ddl,reward,function(ret,err){
+          if(ret&&ret.code==200){
+            api.toast({
+                msg: ret.msg,
+                duration: 2000,
+                location: 'bottom',
+                global:true
+            });
+            goBack();
+          }
+          else if((ret&&ret.code==401)||(ret&&ret.code==402)){
+            api.toast({
+                msg: ret.msg,
+                duration: 2000,
+                location: 'bottom',
+                global:true
+            });
+          }
+          else{
+            api.toast({
+                msg: '网络错误',
+                duration: 2000,
+                location: 'bottom'
+            });
+
+          }
+        });
+    }
+    function goBack(){
+        api.closeWin();
+    }
+    function fetchData(s) {
+        return document.getElementById("task_distribute_"+s).value;
+    }
+
+
+    function type_return(type){
+      switch (type) {
+        case "设计":
+          return {
+            'type':1,
+            'bgColor':"#7be0c0"
+          };
+          break;
+        case "开发":
+          return {
+            'type':2,
+            'bgColor':"#FCC58B"
+          };
+          break;
+        case "多媒体":
+          return {
+            'type':3,
+            'bgColor':"#FA9B9F"
+          };
+          break;
+        case "文案":
+          return {
+            'type':4,
+            'bgColor':"#7be0c0"
+          };
+          break;
+        default:
+      }
+    }
+</script>
+</html>

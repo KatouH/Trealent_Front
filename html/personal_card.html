@@ -1,0 +1,262 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <style>
+    .my-detail-header{
+      width:100%;
+      position: fixed;
+      z-index: 999;
+    }
+    .header-border-line{
+      border-bottom:1px solid #eee;
+    }
+  .aui-bar-nav {
+    background: -webkit-linear-gradient(left, #5FE5FE , #5A8DFE); /* Safari 5.1 - 6.0 */
+    background: linear-gradient(to right, #5FE5FE , #5A8DFE); /* 标准的语法 */
+    opacity: 0;
+    }
+    .personal-card-info{
+      background-color: #fff;
+    }
+    .personal-card-bg{
+      width: 100%;
+      height: 230px;
+      background: url(../image/test.jpg) no-repeat;
+      background-size: cover;
+      background-position: top;
+    }
+    .personal-card-avatar{
+      position: absolute;
+      width: 100%;
+
+    }
+    .avatar-img-box{
+      margin: 0 auto;
+      margin-top: -2.1rem;
+      height: 4.2rem;
+      width: 4.2rem;
+      border-radius: 50%;
+      background-color: #fff;
+    }
+    .personal-card-avatar img{
+      margin: 0 auto;
+      padding-top: 0.1rem;
+      width: 4.0rem;
+      border-radius: 50%
+    }
+    .personal-card-name{
+      padding-top: 2.1rem;
+      text-align: center;
+      font-size: 1rem;
+    }
+    .info-content-stars{
+        margin: 0.1rem 0.75rem;
+        position: relative;
+        width: 3.5rem;
+        height: 0.7rem;
+        display: block;
+        background-image: url(../image/Trealent/star_unlit.png);
+        background-repeat: repeat-x;
+        background-position: left;
+        background-size: contain;
+    }
+    .info-content-stars .right-stars-top{
+        width: 70%;
+        height: 0.7rem;
+        display: block;
+        background-image: url(../image/Trealent/star_lit.png);
+        background-repeat: repeat-x;
+        background-position: left;
+        background-size: contain;
+    }
+    .personal-card-signature{
+      margin-top: 0.4rem;
+      font-size: 0.55rem;
+      color: #777;
+      text-align: center;
+    }
+    .personal-card-detail{
+      padding: 1.6rem 0.75rem;
+      padding-bottom: 0.75rem;
+      background-color: #fff;
+    }
+    .personal-card-detail-2{
+      padding: 0.4rem 0.75rem;
+      background-color: #fff;
+
+    }
+    .info-content{
+      font-size: 0.7rem;
+      color: #777;
+      line-height: 1.1rem;
+      margin-left: 0.7rem;
+    }
+    .task_show{
+      text-align: center;
+    }
+    </style>
+</head>
+<body>
+  <header class="aui-bar aui-bar-nav my-detail-header" id="personal-card-header">
+    <a class="aui-pull-left aui-btn">
+      <img src="../image/Trealent/arrow-left-up.png" style="height:0.8rem;width:0.8rem;" onclick="goBack()"></img>
+    </a>
+    <div style="position:absolute;margin:0 auto;width:100%">个人卡片</div>
+</header>
+  <div class="personal-card-bg"></div>
+  <div class="personal-card-info">
+  <div class="personal-card-avatar"><div class="avatar-img-box"><img src="../image/Trealent/hover_demo0.png" id="user_avatar"></div></div>
+  <div class="personal-card-name" id="user_name">HeDong</div>
+  <div class="personal-card-signature" id="user_signature">法兰克福骄傲了的会计分录据了解</div>
+  <div class="personal-card-detail">
+    <div style="display: flex;display:-webkit-flex;">
+      <img src="../image/Trealent/user.png" style="width:1rem;height:1rem;">
+      <div class="info-content" id="user_realname">何*</div>
+      <div class="info-content" id="user_gender">男</div>
+      <div class="info-content" id="user_age">20岁</div>
+      <div class="info-content" id="user_school">华东师范大学</div>
+    </div>
+    <div style="display: flex;display:-webkit-flex;margin-top:0.3rem;">
+      <img src="../image/Trealent/mail.png" style="width:1rem;height:1rem;">
+      <div class="info-content" id="user_mail">2079907708@qq.com</div>
+    </div>
+    <div style="display: flex;display:-webkit-flex;margin-top:0.3rem;">
+      <img src="../image/Trealent/phoneNum.png" style="width:1rem;height:1rem;">
+      <div class="info-content" id="user_phonenum">189****2771</div>
+    </div>
+  </div>
+  </div>
+  <div class="personal-card-detail-2">
+    <div style="display: flex;display:-webkit-flex;">
+      <img src="../image/Trealent/status.png" style="width:1rem;height:1rem;">
+      <div class="info-content"><img src="../image/Trealent/correct.png" id="user_type_img" style="width:0.8rem;height:0.8rem;margin-top:0.1rem;"></div>
+      <div class="info-content" id="user_type">已认证</div>
+    </div>
+    <div style="display: flex;display:-webkit-flex;margin-top:0.3rem;">
+      <img src="../image/Trealent/credit.png" style="width:1rem;height:1rem;">
+      <div class="info-content-stars">
+          <div class="right-stars-top" id="credoit_star"></div>
+      </div>
+    </div>
+  </div>
+  <div class="personal-card-detail" style="border: none;">
+    <div class="task_show">—— 项目展示 ——</div>
+    <div class="task_show_img">
+      <div class="aui-row aui-row-padded" style="padding-top:0.6rem;">
+          <div class="aui-col-xs-4">
+              <img src="../image/Trealent/user_resume_demo3.png"/>
+          </div>
+          <div class="aui-col-xs-4">
+              <img src="../image/Trealent/user_resume_demo3.png"/>
+          </div>
+          <div class="aui-col-xs-4">
+              <img src="../image/Trealent/user_resume_demo3.png"/>
+          </div>
+          <div class="aui-col-xs-4">
+              <img src="../image/Trealent/user_resume_demo3.png"/>
+          </div>
+          <div class="aui-col-xs-4">
+              <img src="../image/Trealent/user_resume_demo3.png"/>
+          </div>
+          <div class="aui-col-xs-4">
+              <img src="../image/Trealent/user_resume_demo3.png"/>
+          </div>
+          <div class="aui-col-xs-4">
+              <img src="../image/Trealent/user_resume_demo3.png"/>
+          </div>
+          <div class="aui-col-xs-4">
+              <img src="../image/Trealent/user_resume_demo3.png"/>
+          </div>
+          <div class="aui-col-xs-4">
+              <img src="../image/Trealent/user_resume_demo3.png"/>
+          </div>
+      </div>
+    </div>
+  </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/aui-tab.js" ></script>
+<script type="text/javascript" src="../script/aui-toast.js"></script>
+<script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="../script/aui-sharebox.js" ></script>
+<script type="text/javascript" src="../script/trealent-client.js"></script>
+<script type="text/javascript">
+
+      var user_name=$api.getStorage('trealent_user_username');
+      var user_avatar=$api.getStorage('trealent_user_avatar');
+      var user_gender=$api.getStorage('trealent_user_gender');
+      var user_signature=$api.getStorage('trealent_user_signature');
+      var user_realname=$api.getStorage('trealent_user_real_name');
+      var user_birthday=$api.getStorage('trealent_user_birthday');
+      var user_school="华东师范大学";
+      var user_mail=$api.getStorage('trealent_user_mail');
+      var user_phoneNum=$api.getStorage('trealent_user_phone_num');
+      var user_type=$api.getStorage('trealent_user_type');
+      var user_credit=$api.getStorage('trealent_user_credit');
+      var user_local_avatar=$api.getStorage('trealent_user_local_avatar');
+
+      apiready=function(){
+        $api.fixStatusBar($("#personal-card-header").get(0));
+        if($api.getStorage('trealent_user_token')){
+          initDom();
+        }
+        else{
+
+        }
+      }
+
+
+      function initDom(){
+        var now_year= (new Date((new Date()).getTime())).getFullYear();
+        var birthday_year= (new Date(user_birthday)).getFullYear();
+        var user_age=now_year-birthday_year;
+
+        
+        if(user_gender==0){ $("#user_gender").text("男");}
+        else if(user_gender==1){$("#user_gender").text("女");}
+
+        if(user_mail==null){$("#user_mail").text("未绑定")}
+        else{$("#user_mail").text(user_mail)}
+
+        if(user_age==null){$("#user_age").text("")}
+        else{$("#user_age").text(user_age)}
+
+        if(user_signature==null){$("#user_signature").text("你还没有个性签名哦")}
+        else{$("#user_signature").text(user_signature)}
+
+        if((!user_local_avatar)&&(!user_avatar)){}
+        else if(user_local_avatar){$("#user_avatar").attr("src",user_local_avatar+"?"+Date.parse(new Date()));}
+        else {$("#user_avatar").attr("src",user_avatar);}
+
+        if(user_type==0){$("#user_type_img").attr('src',"../image/Trealent/correct.png");$("#user_type").text("已认证")}
+        else{$("#user_type_img").attr('src',"../image/Trealent/uncorrect.png");$("#user_type").text("未认证")}
+
+        $("#credoit_star").css('width',user_credit+"%");
+      }
+
+      function goBack(){
+        api.closeWin({
+        });
+
+      }
+
+
+      $(window).scroll(function(){
+        var scrollY=$(window).scrollTop();
+        var boderPos=120;
+        if(scrollY<boderPos){
+          var ratio=scrollY/boderPos;
+          $("#personal-card-header").css("opacity",ratio);
+          $("#personal-card-header").removeClass("hall-header-shadow");
+        }
+        else{
+          $("#personal-card-header").css("opacity",1);
+          $("#personal-card-header").addClass("hall-header-shadow");
+        }
+      });
+</script>
+<html>

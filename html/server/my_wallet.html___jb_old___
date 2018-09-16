@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+    <style>
+      body{
+        background-color: #fff;
+      }
+      header{
+        width: auto;
+        height: 70px;
+      }
+      .walletCard{
+        background-color: red;
+        width: 85%;
+        margin-bottom: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 15px;
+      }
+      .walletCard img{
+        border-radius: 15px;
+      }
+      .user-detail{
+        display: flex;
+        display: -webkit-flex;
+        justify-content: center;;
+        -webkit-justify-content:center;
+        margin-top: 0.6rem;
+      }
+      .user-detail-item{
+        font-size:24px;
+        color:#94D1FF;
+        padding-right: 2rem;
+        padding-left:2rem;
+        border-right: 1px solid #eee;
+      }
+      .user-detail-item-last{ 
+        font-size:24px;
+        color:#94D1FF;
+        padding-right: 2rem;
+        padding-left:2rem;
+      }
+      .user-detail-item-up{
+        color:#666;
+        font-size:12px;
+        text-align:center
+      }
+      .user-detail-item-down{
+        text-align:center;
+        color:#B4343E;
+        font-size:18px;
+        font-weight:300;
+      }
+    </style>
+</head>
+<body>
+  <header id="my_wallet_header">
+    <a class="aui-iconfont aui-icon-left aui-pull-left" onclick="goBack()"></a>
+  </header>
+
+  <div class="walletCard">
+    <img src="../../image/Trealent/wallet_card.png" style="">
+  </div>
+  <div class="user-detail">
+    <div class="user-detail-item"><div class="user-detail-item-up">余额</div><div class="user-detail-item-down">2017</div></div>
+    <div class="user-detail-item"><div class="user-detail-item-up">入校</div><div class="user-detail-item-down">2016</div></div>
+    <div class="user-detail-item-last"><div class="user-detail-item-up">身份</div><div class="user-detail-item-down">学生</div></div>
+  </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/aui-tab.js" ></script>
+<script type="text/javascript" src="../../script/aui-toast.js"></script>
+<script type="text/javascript" src="../../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+    apiready=function(){
+      $api.fixStatusBar($("#my_wallet_header").get(0));
+    }
+    function goBack(){
+      api.closeWin({
+          animation:{
+            type:"push",
+            subType:"from_left",
+            duration:300
+          }
+      });
+    }
+</script>
+</html>

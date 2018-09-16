@@ -1,0 +1,261 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+    <style>
+    body{
+        background-color: #f5f5f5;
+    }
+    .task-card{
+      width: 90%;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 10px;
+    }
+    .task-card-header{
+      background: -webkit-linear-gradient(left, #868F96 , #596164); /* Safari 5.1 - 6.0 */
+      background: linear-gradient(to right, #868F96 , #596164); /* 标准的语法 */
+      width:100%;
+      height:30px;
+      text-align: center;
+      line-height: 30px;
+      font-size: 18px;
+      font-weight: 400;
+      color: #fff;
+    }
+    .my_padding{
+      height: 20px;
+    }
+    .typecard{
+      width: 50px;
+      text-align: center;
+      height: 100%;
+      color: #fff;
+      background-color: #03a9f4;
+      font-size: 14px;
+      font-weight: 400;
+      border-radius: 5px;
+    }
+    .padding{
+      height: 20px;
+    }
+    .user-card-red{
+      background: -webkit-linear-gradient(bottom right, #F78D91 , #FCA2A6);
+      background: linear-gradient(to top left, #F78D91 , #FCA2A6);
+    }
+    .user-card-green{
+      background: -webkit-linear-gradient(bottom right, #74DFBD , #9BEDD3);
+      background: linear-gradient(to top left, #74DFBD , #9BEDD3);
+    }
+    .user-card-orange{
+      background: -webkit-linear-gradient(bottom right, #FBB57C , #FCD69C);
+      background: linear-gradient(to top left, #FBB57C , #FCD69C);
+    }
+    .aui-progress-bar{
+      background: -webkit-linear-gradient(left, #868F96 , #596164); /* Safari 5.1 - 6.0 */
+      background: linear-gradient(to right, #868F96 , #596164); /* 标准的语法 */
+    }
+    .aui-switch:checked {
+      border-color: #dddddd;
+      background: -webkit-linear-gradient(left, #868F96 , #596164); /* Safari 5.1 - 6.0 */
+      background: linear-gradient(to right, #868F96 , #596164); /* 标准的语法 */
+    }
+    .aui-card-list-more{
+        font-size:14px;
+        line-height: 14px;
+        min-height: 14px;
+        color:#BCBCBC !important;
+    }
+    .loading-mask{
+      position: absolute;
+      z-index: 1000;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255,255,255,1);
+    }
+    .loading{
+      margin: 0.75rem auto;
+      height: 1.3rem;
+      width: 1.3rem;
+    }
+  </style>
+</head>
+<body>
+  <div id="loading-mask" class="loading-mask"><img src="../../image/Trealent/bars_normal.svg" class="loading"></div>
+  <div class="my_padding"></div>
+  <div id="task_finished"></div>
+  <div class="padding"></div>
+</body>
+<script type="text/javascript" src="../../script/doT.min.js" ></script>
+<script id="tpl_task_finished" type="text/dot-tpl">
+<div id="card-box">
+{{~it:value:index}}
+<div class="aui-content aui-margin-b-15">
+      <div class="aui-card-list task-card">
+          <div class="aui-card-list-content-padded">
+              <img src="../../image/Trealent/slider_example.png" />
+          </div>
+          <div class="aui-card-list-content-padded">
+            <div class="task-card-header">{{=value.task.title}}</div>
+              <ul class="aui-list aui-list-in aui-list-noborder">
+                  <li class="aui-list-item">
+                      <div class="aui-list-item-inner">
+                          <div class="aui-list-item-title">项目类型</div>
+                          <div class="aui-list-item-right">
+                              <div class="typecard {{=type_return(value.task.type_id).bgColor}}">{{=type_return(value.task.type_id).type}}</div>
+                          </div>
+                      </div>
+                  </li>
+                  <li class="aui-list-item">
+                      <div class="aui-list-item-inner">
+                          <div class="aui-list-item-title">最终报酬</div>
+                          <div class="aui-list-item-right" style="font-size:16px;font-weight:400;">￥{{=value.task.reward_amount}}</div>
+                      </div>
+                  </li>
+                  <li class="aui-list-item">
+                      <div class="aui-list-item-inner">
+                          <div class="aui-list-item-title">项目角色</div>
+                          <div class="aui-list-item-right" style="font-size:14px;font-weight:400;">组员</div>
+                      </div>
+                  </li>
+                  <li class="aui-list-item">
+                      <div class="aui-list-item-inner">
+                          <div class="aui-list-item-title">完成时间</div>
+                          <div class="aui-list-item-right" style="font-size:14px;font-weight:400;">2018-4-1-21:30</div>
+                      </div>
+                  </li>
+              </ul>
+          </div>
+      </div>
+    </div>
+{{~}}
+{{? index==9}}
+    <div class="aui-text-center aui-card-list-footer aui-card-list-more">加载更多</div>
+{{??}}
+    <div class="aui-text-center aui-card-list-footer aui-card-list-more">没了欸~</div>
+{{?}}
+</div>
+</script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/aui-tab.js" ></script>
+<script type="text/javascript" src="../../script/aui-toast.js"></script>
+<script type="text/javascript" src="../../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="../../script/trealent-client.js"></script>
+<script type="text/javascript">
+
+  var hallCardPage=0;
+  apiready=function(){
+    api.parseTapmode();
+
+    api.setRefreshHeaderInfo({
+        loadingImg: 'widget://image/freshloading.png',
+        bgColor: '#f5f5f5',
+        textColor: '#BCBCBC',
+        textDown: '下拉刷新...',
+        textUp: '松开刷新...',
+        textLoading : '拼命加载中~~',
+    }, function(ret, err) {
+        //在这里从服务器加载数据，加载完成后调用api.refreshHeaderLoadDone()方法恢复组件到默认状态
+        refreshTaskFinished();
+        api.refreshHeaderLoadDone();
+    });
+    initTaskFinished();
+  }
+
+
+
+  function initTaskFinished(){
+    tlClient.task.get_list_status(5,function(ret,err){
+      if(ret&&ret.code==200){
+        var interText = doT.template($("#tpl_task_finished").text());
+        $("#task_finished").after(interText(ret.data));
+        $("#card-box").attr("id","freshCard");
+        hallCardPage++;
+      }
+      else if((ret&&ret.code==401)||(ret&&ret.code==402)){
+        api.toast({
+            msg: ret.msg,
+            duration: 2000,
+            location: 'bottom'
+        });
+      }
+      else{
+        api.toast({
+            msg: '网络错误',
+            duration: 2000,
+            location: 'bottom'
+        });
+
+      }
+    })
+
+    $("#loading-mask").fadeOut(600,function(){
+    })
+  }
+  function refreshTaskFinished(){
+    tlClient.task.get_list_status(5,function(ret,err){
+      var interText = doT.template($("#tpl_task_finished").text());
+      $("#freshCard").attr("id","freshCardRemove");
+      $("#freshCardRemove").fadeOut(300,function(){
+        $("#freshCardRemove").remove();
+        $("#task_finished").after(interText(ret.data));
+        $("#card-box").attr("id","freshCard");
+      });
+    })
+    hallCardPage=2;
+  }
+  function bottomPullRefresh(){
+      if($(".aui-card-list-more").text()=="加载更多"){
+          $(".aui-card-list-more").text("拼命加载中...");
+          bottomFresh();
+      }
+  }
+  function bottomFresh(){
+    tlClient.task.get_list_status(5,hallCardPage++,function(ret,err){
+      $(".aui-card-list-more").remove();
+      var EncodeText = doT.template($("#tpl_task_finished").text());
+      $("#freshCard").append(EncodeText(ret.data));
+      api.parseTapmode();
+    })
+  }
+
+
+  function type_return(type){
+    switch (type) {
+      case 1:
+        return {
+          'type':"设计",
+          'bgColor':"user-card-green"
+        };
+        break;
+      case 2:
+        return {
+          'type':"开发",
+          'bgColor':"user-card-orange"
+        };
+        break;
+      case 3:
+        return {
+          'type':"多媒体",
+          'bgColor':"user-card-red"
+        };
+        break;
+      case 4:
+        return {
+          'type':"文案",
+          'bgColor':"user-card-green"
+        };
+        break;
+      default:
+        return {
+          'type':"其他",
+          'bgColor':"user-card-green"
+        };
+    }
+  }
+</script>
+</html>

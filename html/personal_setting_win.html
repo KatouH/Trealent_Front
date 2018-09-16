@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <style>
+        body{
+            background-color: #f5f5f5;
+        }
+        .aui-bar-nav{
+          background: -webkit-linear-gradient(left, #5FE5FE , #5A8DFE); /* Safari 5.1 - 6.0 */
+          background: linear-gradient(to right, #5FE5FE , #5A8DFE); /* 标准的语法 */
+        }
+    </style>
+</head>
+<body>
+  <header class="aui-bar aui-bar-nav my-detail-header" id="setting-header">
+    <a class="aui-pull-left aui-btn">
+      <img src="../image/Trealent/arrow-left-up.png" id="left-btn" style="height:0.8rem;width:0.8rem;" onclick="goBack()"></img>
+    </a>
+    <div style="position:absolute;margin:0 auto;width:100%">个人设置</div>
+</header>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/aui-tab.js" ></script>
+<script type="text/javascript" src="../script/aui-toast.js"></script>
+<script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
+<script>
+  apiready=function(){
+    $api.fixStatusBar($("#setting-header").get(0));
+    var headerh=$api.offset($api.byId('setting-header')).h;
+
+    api.openFrame({
+        name: 'personalsetting',
+        url: './personal_setting.html',
+        rect: {
+            x: 0,
+            y: headerh,
+            w: 'auto',
+            h: 'auto'
+        },
+        pageParam: {
+            name: 'test'
+        },
+        bounces: true,
+        bgColor: 'rgba(0,0,0,0)',
+        useWKWebView: true,
+    });
+  }
+  function goBack(){
+    api.closeWin({
+
+    });
+
+  }
+</script>
+</html>

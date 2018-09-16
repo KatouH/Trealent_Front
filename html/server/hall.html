@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+    <style>
+    body{
+      background: #fff;
+    }
+    .my-hall-header{
+      width:100%;
+      position: fixed;
+      z-index: 999;
+    	min-height: 2.2rem;
+      padding: 0.5rem 0.75rem;
+      /*-webkit-box-sizing: border-box;
+        	box-sizing: border-box;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+        	justify-content: space-between;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+        	align-items: center;*/
+    }
+    .hall-header-shadow{
+      box-shadow: 0px 1px 5px rgba(0,0,0,0.1)
+    }
+    .logo-setting{
+      width: 60px;
+      height: 30px;
+      margin-top: 0.5rem;
+      float: left;
+    }
+    .search-setting{
+      width: 20px;
+      height: 20px;
+      float:right;
+      margin-top: 0.75rem;
+      margin-right: 0.5rem;
+    }
+    .plus-setting{
+      width: 22px;
+      height: 22px;
+      float:right;
+      margin-top: 0.7rem;
+    }
+    .card-img-setting{
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow:3px 5px 10px #ccc;
+    }
+    .slide-box{
+    display: -webkit-box;
+    overflow-x: scroll;
+    -webkit-overflow-scrolling:touch;
+    padding-bottom: 0.5rem;
+    }
+    .slide-box::-webkit-scrollbar{
+      display: none;
+    }
+
+    .slide-item{
+        width: 130px;
+        height: 80px;
+        border-radius: 10px;
+        margin-left: 10px;
+    }
+    .slide-item-font-chs{
+      font-size: 19px;
+      font-weight: 900;
+      text-align: center;
+      padding: 18px;
+      line-height: 16px;
+      color: #fff;
+    }
+    .slide-item-font-eng{
+      font-size:14px;
+      font-weight:400;
+      color:#fff;
+      margin-top:0.2rem;
+    }
+    .background-red{
+      background:url(../../image/Trealent/red_bg.png)  no-repeat;
+      background-size: 130px 80px;
+    }
+    .background-green{
+      background:url(../../image/Trealent/green_bg.png)  no-repeat;
+      background-size: 130px 80px;
+    }
+    .background-orange{
+      background:url(../../image/Trealent/orange_bg.png)  no-repeat;
+      background-size: 130px 80px;
+    }
+
+
+    .item-min{
+      width: 46px;
+      height: 20px;
+      border-radius: 10px;
+      margin-left: 15px;
+    }
+    .item-min-font{
+      font-size: 12px;
+      text-align: center;
+      line-height: 20px;
+      color: #fff;
+    }
+    .per-card-list{
+      border-radius: 15px;
+      box-shadow:0px 2px 8px rgba(0,0,0,0.1);
+    }
+    .aui-card-list-user-avatar{
+      width: 25px;
+      height: 25px;
+      border:1px solid #ccc;
+      border-radius: 50%;
+    }
+    .username-star-flex{
+      -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: justify;
+        -webkit-justify-content: flex-start;
+            justify-content: flex-start;;
+        -webkit-flex-wrap:nowrap;
+            flex-wrap: nowrap;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+            align-items: center;;
+    }
+    .box-column-text{
+      box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      width: 70%;
+      margin:0% 5% 0% 0%;
+      float:left;
+      font-size: 16px;
+    }
+    .box-column-price{
+      box-sizing: border-box;
+      -webkit-box-sizing:border-box;
+      text-align: right;
+      width: 25%;
+      float: right;
+      font-size: 20px;
+      color:#FF8C00;
+    }
+    .aui-card-list-content-padded{
+      position: relative;
+    	padding:0.1rem 0.75rem;
+    }
+    .box-column-comment{
+      box-sizing: border-box;
+      -webkit-box-sizing:border-box;
+      width: 6%;
+      margin:0% 1% 2% 0%;
+      float:left;
+    }
+    .box-column-comment-content{
+      font-size: 12px;
+      color:#999999;
+      box-sizing: border-box;
+      -webkit-box-sizing:border-box;
+      width: 10%;
+      margin: 0% 0% 2% 0%;
+    }
+    .box-column-bid{
+      box-sizing: border-box;
+      -webkit-box-sizing:border-box;
+      width: 6%;
+      margin:0% 1% 2% 2%;
+      float:left;
+    }
+    .box-column-bid-content{
+      font-size: 12px;
+      color:#999999;
+      box-sizing: border-box;
+      -webkit-box-sizing:border-box;
+      width: 12%;
+      margin: 0% 0% 2% 0%;
+    }
+    .info-content-stars{
+        position: relative;
+        width: 3.5rem;
+        height: 0.7rem;
+        display: block;
+        background-image: url(../../image/Trealent/star_unlit.png);
+        background-repeat: repeat-x;
+        background-position: left;
+        background-size: contain;
+    }
+    .info-content-stars .right-stars-top{
+        width: 70%;
+        height: 0.7rem;
+        display: block;
+        background-image: url(../../image/Trealent/star_lit.png);
+        background-repeat: repeat-x;
+        background-position: left;
+        background-size: contain;
+    }
+    .aui-card-list-more{
+        font-size:14px;
+        line-height: 14px;
+        min-height: 14px;
+        color:#BCBCBC !important;
+    }
+    .mark_loading{
+      position: absolute;;;
+      z-index: 1000;
+      width: 100%;
+      height: 150%;
+      background-color: rgba(255,255,255,1);
+      text-align: center;
+    }
+    </style>
+</head>
+<body>
+      <div class="my-hall-header" id="hall-header">
+          <img src="../../image/Trealent/logo.png" class="logo-setting"><img>
+          <img src="../../image/Trealent/plus_hall.png" onclick="openTaskDistribute()" class="plus-setting"></img>
+          <img src="../../image/Trealent/search.png" onclick="openSearchWin()" class="search-setting"></img>
+      </div>
+      <div class="aui-card-list" id="hall-body">
+        <div class="aui-card-list-header">
+        </div>
+        <div class="aui-card-list-content" style="padding:8px 12px 0px 12px;">
+            <img class="card-img-setting" id="pic" src="../../image/Trealent/slider_example.png" />
+        </div>
+        <div class="aui-content">
+          <div>
+              <div class="aui-card-list-header">
+                <div class="aui-list-item-title" style="font-weight:700;font-size:18px;">
+                  标签
+                </div>
+                <a class="aui-iconfont aui-pull-right aui-icon-right" onclick="openLabelEditWin()"></a>
+              </div>
+              <div class="aui-card-list-content">
+                <div class="slide-box">
+                  <div class="slide-item slide-item-font-chs background-green" tapmode onclick="onpenTaskListWin(1)"><div style="margin-top:0.4rem;">设计<br><p class="slide-item-font-eng">Design</p></div></div>
+                  <div class="slide-item slide-item-font-chs background-orange" tapmode onclick="onpenTaskListWin(2)"><div style="margin-top:0.4rem;">开发<br><p class="slide-item-font-eng">Develope</p></div></div>
+                  <div class="slide-item slide-item-font-chs background-red" tapmode onclick="onpenTaskListWin(3)"><div style="margin-top:0.4rem;">多媒体<br><p class="slide-item-font-eng">Multimedia</p></div></div>
+                  <div class="slide-item slide-item-font-chs background-green" tapmode onclick="onpenTaskListWin(4)"><div style="margin-top:0.4rem;">文案撰写<br><p class="slide-item-font-eng">Copywriting</p></div></div>
+                </div>
+              </div>
+          </div>
+          <div>
+              <div class="aui-card-list-header">
+                <div class="aui-list-item-title" style="font-weight:700;font-size:18px;">
+                  推荐
+                </div>
+                <a class="aui-iconfont aui-pull-right aui-icon-right" onclick="openLabelEditWin()"></a>
+              </div>
+              <div class="aui-card-list-content">
+                <div style="padding:0px 15px 0px 15px;">
+                  <div id="">
+                    <div class="aui-card-list per-card-list" onclick="openDetailWin()" tapmode>
+                        <div class="aui-card-list-header aui-card-list-user">
+                            <div class="aui-card-list-user-avatar"><img src="../../image/Trealent/me_hover.png"></img></div>
+                            <div class="aui-card-list-user-name">
+                            <div class="username-star-flex">
+                            <div style="font-size:16px;font-weight:600;margin-right:10px;">就是我</div>
+                            <div class="info-content-stars">
+                                <div class="right-stars-top"></div>
+                            </div>
+                            </div>
+                            <div class="item-min item-min-font" style="background-color:#7be0c0;">设计</div>
+                            </div>
+                        </div>
+                        <div class="aui-card-list-content-padded">
+                          <div class="aui-media-list-item-inner" >
+                              <div class="box-column-text">智慧出行App Logo设计</div>
+                              <div class="box-column-price">￥200</div>
+                          </div>
+                        </div>
+                        <div class="aui-card-list-content-padded">
+                          <div class="aui-media-list-item-inner">
+                          <div class="box-column-comment"><img src="../../image/Trealent/comment.png" style="height:18px;width:18px;"></img></div>
+                          <div class="box-column-comment-content">192</div>
+                          <div class="box-column-bid"><img src="../../image/Trealent/bid.png" style="height:18px;width:18px;"></img></div>
+                          <div class="box-column-bid-content">4/20</div>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="aui-card-list per-card-list" onclick="openDetailWin2()" tapmode>
+                        <div class="aui-card-list-header aui-card-list-user">
+                            <div class="aui-card-list-user-avatar"><img src="../../image/Trealent/me_hover.png"></img></div>
+                            <div class="aui-card-list-user-name">
+                            <div class="username-star-flex">
+                            <div style="font-size:16px;font-weight:600;margin-right:10px;">巴拉巴拉小魔仙</div>
+                            <div class="info-content-stars">
+                                <div class="right-stars-top"></div>
+                            </div>
+                            </div>
+                            <small><div class="item-min item-min-font" style="background-color:#FCC58B;">开发</div></small>
+                            </div>
+                        </div>
+                        <div class="aui-card-list-content-padded">
+                          <div class="aui-media-list-item-inner">
+                              <div class="box-column-text">智慧出行App设计</div>
+                              <div class="box-column-price">￥2000</div>
+                          </div>
+                        </div>
+                        <div class="aui-card-list-content-padded">
+                          <div class="aui-media-list-item-inner">
+                          <div class="box-column-comment"><img src="../../image/Trealent/comment.png" style="height:18px;width:18px;"></img></div>
+                          <div class="box-column-comment-content">192</div>
+                          <div class="box-column-bid"><img src="../../image/Trealent/bid.png" style="height:18px;width:18px;"></img></div>
+                          <div class="box-column-bid-content">4/20</div>
+                          </div>
+                        </div>
+                    </div>
+                    <div id="hall-taskcard"></div>
+                  </div>
+                </div>
+              </div>
+          </div>
+      </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/doT.min.js" ></script>
+<script id="tpl-hall-taskcard" type="text/dot-tpl">
+<div id="card-box">
+{{~it:value:index}}
+<div class="aui-card-list per-card-list" id="{{=value.id}}" onclick="openDetailWin(this.id)" tapmode>
+    <div class="aui-card-list-header aui-card-list-user">
+        <div class="aui-card-list-user-avatar"><img src="{{=value.demander.avatar}}"></img></div>
+        <div class="aui-card-list-user-name">
+        <div class="username-star-flex">
+        <div style="font-size:16px;font-weight:600;margin-right:10px;">{{=value.demander.username}}</div>
+        <div class="info-content-stars">
+            <div class="right-stars-top"></div>
+        </div>
+        </div>
+        <div class="item-min item-min-font" style="background-color:{{=type_return(value.type_id).bgColor}};">{{=type_return(value.type_id).type}}</div>
+        </div>
+    </div>
+    <div class="aui-card-list-content-padded">
+      <div class="aui-media-list-item-inner" >
+          <div class="box-column-text aui-ellipsis-1">{{=value.title}}</div>
+          <div class="box-column-price">￥{{=value.reward_amount}}</div>
+      </div>
+    </div>
+    <div class="aui-card-list-content-padded">
+      <div class="aui-media-list-item-inner">
+      <div class="box-column-comment"><img src="../../image/Trealent/comment.png" style="height:18px;width:18px;"></img></div>
+      <div class="box-column-comment-content">{{=value.comment_count}}</div>
+      <div class="box-column-bid"><img src="../../image/Trealent/bid.png" style="height:18px;width:18px;"></img></div>
+      <div class="box-column-bid-content">{{=value.now_member_num}}/{{=value.require_member_num}}</div>
+      </div>
+    </div>
+</div>
+{{~}}
+{{? index==9}}
+    <div class="aui-text-center aui-card-list-footer aui-card-list-more">加载更多</div>
+{{??}}
+    <div class="aui-text-center aui-card-list-footer aui-card-list-more">没了欸~</div>
+{{?}}
+<div>
+</script>
+
+<script id="tpl-hall-taskcardMore" type="text/dot-tpl">
+<div class="{{= (it.length>0?'addons':'addonsover')}}">
+{{~it:value:index}}
+<div class="aui-card-list per-card-list" id="{{=value.id}}" onclick="openDetailWin(this.id)" tapmode>
+    <div class="aui-card-list-header aui-card-list-user">
+        <div class="aui-card-list-user-avatar"><img src="{{=value.demander.avatar}}"></img></div>
+        <div class="aui-card-list-user-name">
+        <div class="username-star-flex">
+        <div style="font-size:16px;font-weight:600;margin-right:10px;">{{=value.demander.username}}</div>
+        <div class="info-content-stars">
+            <div class="right-stars-top"></div>
+        </div>
+        </div>
+        <div class="item-min item-min-font" style="background-color:{{=type_return(value.type_id).bgColor}};">{{=type_return(value.type_id).type}}</div>
+        </div>
+    </div>
+    <div class="aui-card-list-content-padded">
+      <div class="aui-media-list-item-inner" >
+          <div class="box-column-text aui-ellipsis-1">{{=value.title}}</div>
+          <div class="box-column-price">￥{{=value.reward_amount}}</div>
+      </div>
+    </div>
+    <div class="aui-card-list-content-padded">
+      <div class="aui-media-list-item-inner">
+      <div class="box-column-comment"><img src="../../image/Trealent/comment.png" style="height:18px;width:18px;"></img></div>
+      <div class="box-column-comment-content">{{=value.comment_count}}</div>
+      <div class="box-column-bid"><img src="../../image/Trealent/bid.png" style="height:18px;width:18px;"></img></div>
+      <div class="box-column-bid-content">{{=value.now_member_num}}/{{=value.require_member_num}}</div>
+      </div>
+    </div>
+</div>
+{{~}}
+{{? index==9}}
+    <div class="aui-text-center aui-card-list-footer aui-card-list-more">加载更多</div>
+{{??}}
+    <div class="aui-text-center aui-card-list-footer aui-card-list-more">没了欸~</div>
+{{?}}
+<div>
+</script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/aui-tab.js" ></script>
+<script type="text/javascript" src="../../script/aui-toast.js"></script>
+<script type="text/javascript" src="../../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="../../script/aui-scroll.js" ></script>
+<script type="text/javascript" src="../../script/trealent-client.js"></script>
+<script type="text/javascript">
+    var hallCardPage=1;
+    var scroll = new auiScroll({
+        listen:true,
+        distance:50 //判断到达底部的距离，isToBottom为true
+    },function(ret){
+        if(ret.isToBottom){
+            //document.getElementById("demo").textContent = "已到达底部";
+            bottomPullRefresh();
+        }else{
+            //
+        }
+
+    });
+    apiready=function(){
+        $api.fixStatusBar($("#hall-header").get(0));
+        $api.fixStatusBar($("#hall-body").get(0));
+        api.setStatusBarStyle({
+                style:'dark'
+            });
+        api.setRefreshHeaderInfo({
+            loadingImg: 'widget://image/freshloading.png',
+            bgColor: '#f5f5f5',
+            textColor: '#BCBCBC',
+            textDown: '下拉刷新...',
+            textUp: '松开刷新...',
+            textLoading : '拼命加载中~~',
+        }, function(ret, err) {
+            //在这里从服务器加载数据，加载完成后调用api.refreshHeaderLoadDone()方法恢复组件到默认状态
+            refreshHall();
+            api.refreshHeaderLoadDone();
+        });
+        initHall();
+    }
+
+      $(window).scroll(function(){
+        var scrollY=$(window).scrollTop();
+        var boderPos=120;
+        if(scrollY<boderPos){
+          var ratio=scrollY/boderPos;
+          $("#hall-header").css("background-color","rgba(255,255,255,"+ratio+")");
+          $("#hall-header").removeClass("hall-header-shadow");
+        }
+        else{
+          $("#hall-header").css("background-color","#fff");
+          $("#hall-header").addClass("hall-header-shadow");
+        }
+      });
+    function openLabelEditWin(){
+      api.openWin({
+          name: 'labeleditwin',
+          url: './labelEditwin.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+    }
+    function openSearchWin(){
+      /*api.openWin({
+          name: 'register',
+          url: '../register.html',
+          pageParam: {
+              name: 'test'
+          }
+      });*/
+      api.rebootApp();
+    }
+
+    $(function(){
+      var imgArr=["../../image/Trealent/slider_example.png"]
+      var imgIndex=0;
+      var timer=null;
+      imgChangeAuto();
+      function imgChangeAuto(){
+        timer=setInterval(function(){
+          imgIndex++;
+          if(imgIndex>imgArr.length){
+            imgIndex=0;
+          }
+          $("#pic").attr("src",imgArr[imgIndex]).css('opacity',0.2).animate({
+            'opacity':1
+          },2000);
+        },5000);
+      }
+    }
+  )
+  function openDetailWin(taskId){
+    api.openWin({
+        name: 'detailWin',
+        url: '../detail_win.html',
+        pageParam: {
+            task_id: taskId
+        },
+    });
+
+ }
+ function openDetailWin2(){
+   api.openWin({
+       name: 'loginorregister',
+       url: '../loginOrregister.html',
+       pageParam: {
+           name: 'test'
+       },
+   });
+
+}
+
+function onpenTaskListWin(val){
+  if(val==1){
+    api.openWin({
+        name: 'task_list1',
+        url: '../task_list1.html',
+        pageParam: {
+            name: 'test'
+        }
+    });
+  }
+  if(val==2){
+    api.openWin({
+        name: 'task_list2',
+        url: '../task_list2.html',
+        pageParam: {
+            name: 'test'
+        }
+    });
+  }
+  if(val==3){
+    api.openWin({
+        name: 'task_list3',
+        url: '../task_list3.html',
+        pageParam: {
+            name: 'test'
+        }
+    });
+  }
+  if(val==4){
+    api.openWin({
+        name: 'task_list4',
+        url: '../task_list4.html',
+        pageParam: {
+            name: 'test'
+        }
+    });
+  }
+}
+      function openTaskDistribute(){
+        api.openWin({
+            name: 'taskDistribute',
+            url: '../task_distribute.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+
+      }
+      function initHall(){
+        tlClient.task.get_task_list(0,function(ret,err){
+          var interText = doT.template($("#tpl-hall-taskcard").text());
+          $("#hall-taskcard").after(interText(ret.data));
+          $("#card-box").attr("id","freshCard");
+        })
+        hallCardPage++;
+      }
+      function refreshHall(){
+        tlClient.task.get_task_list(0,function(ret,err){
+          var interText = doT.template($("#tpl-hall-taskcard").text());
+          $("#freshCard").attr("id","freshCardRemove");
+          $("#freshCardRemove").fadeOut(300,function(){
+            $("#freshCardRemove").remove();
+            $("#hall-taskcard").after(interText(ret.data));
+            $("#card-box").attr("id","freshCard");
+          });
+        })
+        hallCardPage=2;
+      }
+      function bottomPullRefresh(){
+          if($(".aui-card-list-more").text()=="加载更多"){
+              $(".aui-card-list-more").text("拼命加载中...");
+              bottomFresh();
+          }
+      }
+      function bottomFresh(){
+        tlClient.task.get_task_list(0,hallCardPage++,function(ret,err){
+          $(".aui-card-list-more").remove();
+          var EncodeText = doT.template($("#tpl-hall-taskcardMore").text());
+          $("#freshCard").append(EncodeText(ret.data));
+          api.parseTapmode();
+        })
+      }
+      function type_return(type){
+        switch (type) {
+          case 1:
+            return {
+              'type':"设计",
+              'bgColor':"#7be0c0"
+            };
+            break;
+          case 2:
+            return {
+              'type':"开发",
+              'bgColor':"#FCC58B"
+            };
+            break;
+          case 3:
+            return {
+              'type':"多媒体",
+              'bgColor':"#FA9B9F"
+            };
+            break;
+          case 4:
+            return {
+              'type':"文案",
+              'bgColor':"#7be0c0"
+            };
+            break;
+          default:
+        }
+      }
+</script>
+</html>

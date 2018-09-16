@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+    <style>
+    body{
+      background-color: rgba(0,0,0,0);
+    }
+    body, html{
+       width: 100%;
+         height: 100%;
+    }
+    .aui-popuplist{
+         -webkit-animation-duration:400ms;
+       width: 100%;
+         height: 100%;
+         padding:2px 7px 9px 7px;
+    }
+    .aui-popuplist .aui-popuplist-win{
+       width: 100%;
+       height: 100%;
+       background-color: rgba(255,255,255,0.95);
+       -moz-box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* 老的 Firefox */
+         box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+    .aui-popuplist .aui-popuplist-win .title-bar{
+       /*position:absolute;*/
+       height:35px;
+       background: -webkit-linear-gradient(left, #868F96 , #596164); /* Safari 5.1 - 6.0 */
+       background: linear-gradient(to right, #868F96 , #596164); /* 标准的语法 */
+       color:#FFFFFF;
+       padding-left:10px;
+       padding-right:10px;
+    }
+    .aui-popuplist .aui-popuplist-win .title-bar .task-num{
+       border-radius: 13px;
+       background-color:#FFFFFF;
+       color:#999;
+       padding-left:5px;
+       padding-right:5px;
+    }
+    .aui-popuplist .aui-popuplist-win .list-content{
+       overflow-y:scroll;
+       overflow-x:hidden;
+       height:100px;
+       width:100%;
+       -webkit-overflow-scrolling: touch
+    }
+      .triangle-down {
+          width: 0;
+          height: 0;
+          border-left: 5px solid transparent;
+          border-right: 5px solid transparent;
+          border-top: 8px solid rgba(255,255,255,0.95);
+          margin-left:auto;
+          margin-right:auto;
+      }
+      .aui-list .aui-list-item {
+          min-height: 1.8rem !important;
+      }
+      .aui-list .aui-list-item-inner {
+          min-height: 1.8rem !important;
+      }
+  </style>
+</head>
+<body>
+  <div class="aui-popuplist">
+      <div class="aui-popuplist-win">
+          <div class="title-bar aui-info">
+              <div class="aui-info-item">小组成员</div>
+              <div id="tasknum" class="aui-info-item task-num">4</div>
+          </div>
+          <div class="list-content">
+               <ul id="freshList" class="aui-list aui-list-noborder">
+                 <li class="aui-list-item" tapmode onclick="openTask()">
+                     <div class="aui-list-item-inner">
+                         <div class="aui-list-item-title aui-ellipsis-1">
+                           <div class="aui-list-item-media" style="width: 2rem;">
+                              <img src="../../image/demo1.png" class="aui-img-round aui-list-img-xxm">
+                          </div>
+                         </div>
+                         <div class="aui-list-item-right"style="font-size:14px;font-weight:300;width:60%;">流浪男</div>
+                     </div>
+                 </li>
+                 <li class="aui-list-item" tapmode onclick="openTask()">
+                     <div class="aui-list-item-inner">
+                         <div class="aui-list-item-title aui-ellipsis-1">
+                           <div class="aui-list-item-media" style="width: 2rem;">
+                              <img src="../../image/demo1.png" class="aui-img-round aui-list-img-xxm">
+                          </div>
+                         </div>
+                         <div class="aui-list-item-right"style="font-size:14px;font-weight:300;width:60%;">流浪男</div>
+                     </div>
+                 </li>
+                 <li class="aui-list-item" tapmode onclick="openTask()">
+                     <div class="aui-list-item-inner">
+                         <div class="aui-list-item-title aui-ellipsis-1">
+                           <div class="aui-list-item-media" style="width: 2rem;">
+                              <img src="../../image/demo1.png" class="aui-img-round aui-list-img-xxm">
+                          </div>
+                         </div>
+                         <div class="aui-list-item-right"style="font-size:14px;font-weight:300;width:60%;">流浪男</div>
+                     </div>
+                 </li>
+                 <li class="aui-list-item" tapmode onclick="openTask()">
+                     <div class="aui-list-item-inner">
+                         <div class="aui-list-item-title aui-ellipsis-1">
+                           <div class="aui-list-item-media" style="width: 2rem;">
+                              <img src="../../image/demo1.png" class="aui-img-round aui-list-img-xxm">
+                          </div>
+                         </div>
+                         <div class="aui-list-item-right"style="font-size:14px;font-weight:300;width:60%;">流浪男</div>
+                     </div>
+                 </li>
+               </ul>
+          </div>
+        </div>
+            <div class="triangle-down">
+        </div>
+  </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/aui-tab.js" ></script>
+<script type="text/javascript" src="../../script/aui-toast.js"></script>
+<script type="text/javascript" src="../../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+  apiready=function(){
+    api.parseTapmode();
+  }
+</script>
+</html>

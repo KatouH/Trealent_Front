@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+    <style>
+    .task-card{
+      width: 90%;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+  <header class="aui-bar aui-bar-nav aui-bar-light" id="task_waiting_header">
+      <div tapmode onclick="goBack()" class="aui-pull-left aui-btn"><img src="../../image/Trealent/arrow-left-down.png" id="left-btn" style="height:0.9rem;width:0.9rem;"></div>
+      <div class="aui-title" style="font-size: 18px;font-weight: 500;color: #444">待确认</div>
+  </header>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/aui-tab.js" ></script>
+<script type="text/javascript" src="../../script/aui-toast.js"></script>
+<script type="text/javascript" src="../../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+  apiready=function(){
+    api.parseTapmode();
+    var header = $api.byId('task_waiting_header');
+    $api.fixStatusBar(header);
+    var headerPos = $api.offset(header);
+    var body_h = $api.offset($api.dom('body')).h;
+    api.addEventListener({
+        name:'viewappear'
+    }, function(ret, err){
+       api.setStatusBarStyle({
+           style: 'dark',
+       });
+    });
+    api.openFrame({
+        name: 'task_waiting_frm',
+        url: 'task_waiting_frm.html',
+        bounces: true,
+        bgColor:'rgba(0,0,0,0)',
+        pageParam: {header:headerPos.h},
+        rect: {
+            x: 0,
+            y: headerPos.h,
+            w: 'auto',
+            h: 'auto'
+        }
+    })
+  }
+  function goBack(){
+    api.closeWin({
+        animation:{
+          type:"push",
+          subType:"from_left",
+          duration:300
+        }
+    });
+  }
+</script>
+</html>

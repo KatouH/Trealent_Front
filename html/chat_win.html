@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+</head>
+<style>
+      html{
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+      }
+      body{
+        height: 100%;
+      }
+      .footer_csdn{
+      background-color: #fff;
+      margin:1px 0px 0px 0px;
+      padding:1px 0px 1px 0px;
+      display: block;
+      clear:both;
+      position:absolute;
+      bottom:0;
+      text-align:center;
+      color:rgba(0,0,0,1);
+      font-size: 20px;
+      height: 40px;
+      width:100%;
+      border: 1px solid #000;
+      }
+      input{
+        height: 100px;
+        background-color: rgba(255,255,255,0)!important;
+      }
+</style>
+<body>
+    <header class="aui-bar aui-bar-nav" id="aui-header">
+        <a class="aui-btn aui-pull-left" tapmode onclick="closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title" id="sender_name">AUI</div>
+    </header>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/doT.min.js" ></script>
+<script type="text/javascript" src="../script/jquery-3.3.1.min.js" ></script>
+<script type="text/javascript" src="../script/trealent-client.js"></script>
+<script type="text/javascript">
+    var headerHeight = 0;
+    apiready = function(){
+      /*var inputField = api.require('inputField');
+      inputField.open({
+          bgColor: '#eee',
+          lineColor: '#fff',
+          fileBgColor: '#fff',
+          borderColor: '#fff',
+          fixedOn: api.frameName,
+          maxLines:3,
+          sendBtn:{
+            bg: '#1595EF',          //字符串类型；发送按钮常态背景色
+            bgHighlight: '#1595EF', //字符串类型；发送按钮点击时的高亮背景色
+            title: '发送',        //字符串类型；发送按钮的标题
+            titleSize: 12,    //数字类型；发送按钮的标题字体大小
+            titleColor: '#fff',  //字符串类型；发送按钮标题文字颜色
+            corner: 5            //数字类型；发送按钮圆角大小
+          }
+      }, function(ret, err) {
+        /*  if (ret) {
+              alert(JSON.stringify(ret));
+          } else {
+              alert(JSON.stringify(err));
+          }
+      });*/
+        tlClient.user.getotherprofile(api.pageParam.sender_id,function(ret,err){
+          $("#sender_name").text(ret.username);
+        })
+        api.parseTapmode();
+        var header = $api.byId('aui-header');
+        $api.fixStatusBar(header);
+        var headerPos = $api.offset(header);
+        var body_h = $api.offset($api.dom('body')).h;
+        headerHeight = headerPos.h;
+        api.openFrame({
+            name: 'chat_frm',
+            url: 'chat_frm.html',
+            softInputMode:'resize',
+            pageParam: {
+              headerHeight: headerHeight,
+              sender_id:api.pageParam.sender_id
+            },
+            bounces: true,
+            rect: {
+                x: 0,
+                y: headerPos.h,
+                w: 'auto',
+                h: api.winHeight-headerPos.h-50,
+            }
+        })
+
+
+    };
+
+
+    function closeWin(){
+        api.closeWin({
+        });
+    }
+
+    function recieveMsg(){
+      alert("jlajflasdjf");
+    }
+</script>
+</html>

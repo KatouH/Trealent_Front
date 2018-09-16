@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui-flex.css" />
+    <style>
+    img{
+      width: 200px;
+      height: 80px;
+    }
+    .aui-topbar{
+      display: -webkit-box;
+      -webkit-box-pack: center;
+      -webkit-box-align: center;
+      height: 2rem;
+      overflow: hidden;
+      width: 100%;
+      background-color: #FFF;
+      color: #9e9e9e;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+  }
+  .aui-topbar.support{
+      background-color:rgba(255,255,255,0.7);
+      -webkit-backdrop-filter: brightness(1) blur(20px);
+      backdrop-filter: blur(20px);
+  }
+  .aui-text-main{
+      color:#01ccf9;
+  }
+  .aui-active{
+      color:#01ccf9;
+  }
+  </style>
+</head>
+<body>
+    <div style="height:10px;background-color:#fff">
+    </div>
+    <div class="aui-tab" id="task-tab">
+    <div class="aui-tab-item aui-active">Item1</div>
+    <div class="aui-tab-item"><div></div>Item2</div>
+    <div class="aui-tab-item">Item3</div>
+    <div class="aui-tab-item">Item4</div>
+</div>
+
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/aui-tab.js" ></script>
+<script type="text/javascript" src="../../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="../../script/2.0/aui-tab.js" ></script>
+<script type="text/javascript">
+        apiready=function(){
+          set_task_visible(false);
+          api.parseTapmode();
+          var taskTab = new auiTab({
+              element:document.getElementById("task-tab"),
+          },function(ret){
+              console.log(ret);
+          });
+        }
+        var winHeight = api.winHeight;
+        function openTaskTab(taskPageIndex){
+          api.setFrameGroupIndex({
+              name: 'taskPages',
+              index: taskPageIndex-1,
+              scroll: true
+          });
+        }
+
+        function set_task_visible(visible){
+          api.setFrameGroupAttr({
+              name: 'taskPages',
+              hidden: !visible,
+          });
+        }
+</script>
+</html>

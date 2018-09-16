@@ -1,0 +1,370 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <style>
+    .aui-bar-nav{
+      background: -webkit-linear-gradient(left, #5FE5FE , #5A8DFE); /* Safari 5.1 - 6.0 */
+      background: linear-gradient(to right, #5FE5FE , #5A8DFE); /* 标准的语法 */
+    }
+    .setting-box{
+
+    }
+    .login-out-btn{
+      margin:1rem auto;
+      height: 2.0rem;
+      width: 100%;
+      background-color: #fff;
+      text-align: center;
+      line-height: 2.0rem;
+      color: red;
+    }
+    </style>
+</head>
+<body>
+<div class="aui-content aui-margin-b-15" style="margin-top:1rem;">
+   <ul class="aui-list aui-list-in">
+     <li class="aui-list-item">
+          <div class="aui-list-item-inner aui-list-item-arrow" onclick="AvatarChg()">
+              <div class="aui-list-item-title">修改头像</div>
+              <div class="aui-list-item-right">
+                <img src="../image/Trealent/dongdong_avater.jpg" id="setting-avatar" style="height:2.4rem;width:2.4rem;border-radius:50%;margin:0.35rem 0.1rem;"></img>
+              </div>
+          </div>
+      </li>
+       <li class="aui-list-item">
+            <div class="aui-list-item-inner aui-list-item-arrow">
+                <div class="aui-list-item-title" onclick="passwordChg()">密码</div>
+            </div>
+        </li>
+      <li class="aui-list-item">
+           <div class="aui-list-item-inner aui-list-item-arrow" onclick="GenderChg()">
+               <div class="aui-list-item-title">性别</div>
+               <div class="aui-list-item-right"  style="display:flex;">
+                 <img src="../image/Trealent/man.png" id="genderImg" style="height:0.85rem;width:0.85rem;padding:0.15rem;margin-right:0.2rem;"></img>
+                  <p style="font-size: 0.6rem;color: #757575;" id="genderT">男</p>
+               </div>
+           </div>
+       </li>
+       <li class="aui-list-item">
+            <div class="aui-list-item-inner aui-list-item-arrow" onclick="EmailChg()">
+                <div class="aui-list-item-title">邮箱</div>
+                <div class="aui-list-item-right" id="email">
+                  未绑定
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+             <div class="aui-list-item-inner aui-list-item-arrow" onclick="BirthdayChg()">
+                 <div class="aui-list-item-title">生日</div>
+                 <div class="aui-list-item-right" id="birthday">
+                   1970-01-01
+                 </div>
+             </div>
+         </li>
+         <li class="aui-list-item">
+              <div class="aui-list-item-inner aui-list-item-arrow">
+                  <div class="aui-list-item-title">个性签名</div>
+                  <div class="aui-list-item-right">
+                    <div id="signature" class="aui-ellipsis-1">你还没有个性签名哦</div>
+                  </div>
+              </div>
+        </li>
+    </ul>
+  </div>
+  <div class="aui-content aui-margin-b-15" style="margin-top:1rem;">
+     <ul class="aui-list aui-list-in">
+         <li class="aui-list-item">
+              <div class="aui-list-item-inner aui-list-item-arrow">
+                  <div class="aui-list-item-title">建议反馈</div>
+                  <div class="aui-list-item-right">
+                  </div>
+              </div>
+          </li>
+          <li class="aui-list-item">
+               <div class="aui-list-item-inner aui-list-item-arrow">
+                   <div class="aui-list-item-title">关于唯才</div>
+                   <div class="aui-list-item-right">
+                     V 1.0.0
+                   </div>
+               </div>
+           </li>
+      </ul>
+    </div>
+    <div class="login-out-btn" onclick="loginOut()">退出登录</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/aui-tab.js" ></script>
+<script type="text/javascript" src="../script/aui-toast.js"></script>
+<script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="../script/aui-sharebox.js" ></script>
+<script type="text/javascript" src="../script/trealent-client.js"></script>
+<script type="text/javascript">
+    apiready=function() {
+      api.parseTapmode();
+      initData();
+    }
+
+
+    var user_id=$api.getStorage("trealent_user_id");
+    var user_token=$api.getStorage("trealent_user_token");
+    var user_gender=$api.getStorage("trealent_user_gender");
+    var user_mail=$api.getStorage("trealent_user_mail");
+    var user_birthday=$api.getStorage("trealent_user_birthday");
+    var user_signature=$api.getStorage("trealent_user_signature");
+    var user_local_avatar=$api.getStorage("trealent_user_local_avatar");
+    var user_avatar=$api.getStorage("trealent_user_avatar");
+
+    function initData(){
+      if($api.getStorage("trealent_user_gender")){
+        initDom();
+    }else{
+      tlClient.user.getprofile();
+      user_id=$api.getStorage("trealent_user_id");
+      user_token=$api.getStorage("trealent_user_token");
+      user_gender=$api.getStorage("trealent_user_gender");
+      user_mail=$api.getStorage("trealent_user_mail");
+      user_birthday=$api.getStorage("trealent_user_birthday");
+      user_signature=$api.getStorage("trealent_user_signature");
+      user_avatar=$api.getStorage("trealent_user_avatar");
+      initDom();
+      /*f(user_token&&user_id){
+        api.ajax({
+            url: 'http://192.168.31.70/api/user/profile',
+            method: 'post',
+            data: {
+                values: {
+                    uid:user_id,
+                    utoken:user_token,
+                },
+            }
+        },function(ret, err){
+          if(ret&&ret.code==200){
+            $api.setStorage('trealent_user_phone_num', ret.data.phone_num);
+            $api.setStorage('trealent_user_gender', ret.data.gender);
+            $api.setStorage('trealent_user_mail', ret.data.mail);
+            $api.setStorage('trealent_user_birthday', ret.data.birthday);
+            $api.setStorage('trealent_user_signature', ret.data.signature);
+            $api.setStorage('trealent_user_avatar', ret.data.avatar);
+
+            user_id=$api.getStorage("trealent_user_id");
+            user_token=$api.getStorage("trealent_user_token");
+            user_gender=$api.getStorage("trealent_user_gender");
+            user_mail=$api.getStorage("trealent_user_mail");
+            user_birthday=$api.getStorage("trealent_user_birthday");
+            user_signature=$api.getStorage("trealent_user_signature");
+            user_avatar=$api.getStorage("trealent_user_avatar");
+            initDom();
+          }
+        });
+      }*/
+    }
+
+  }
+
+  function initDom(){
+
+    if(user_gender==0){$("#genderImg").attr("src","../image/Trealent/man.png"); $("#genderT").text("男");}
+    else if(user_gender==1){$("#genderImg").attr("src","../image/Trealent/woman.png"); $("#genderT").text("女");}
+
+    if(user_mail==null){$("#email").text("未绑定")}
+    else{$("#email").text(user_mail)}
+
+    if(user_birthday==null){$("#birthday").text("未填写")}
+    else{$("#birthday").text(user_birthday)}
+
+    if(user_signature==null){$("#signature").text("你还没有个性签名哦")}
+    else{$("#signature").text(user_signature)}
+
+    if((!user_local_avatar)&&(!user_avatar)){}
+    else if(user_local_avatar){$("#setting-avatar").attr("src",user_local_avatar+"?"+Date.parse(new Date()));}
+    else {$("#setting-avatar").attr("src",user_avatar);}
+  }
+
+  function AvaterDomChg(){
+    $("#setting-avatar").attr("src",user_local_avatar+"?"+Date.parse(new Date()));
+  }
+    function loginOut(){
+
+      tlClient.user.logout();
+      /*if(user_token&&user_id){
+      api.ajax({
+          url: 'http://192.168.31.70/api/user/logout',
+          method: 'post',
+          data: {
+              values: {
+                uid:user_id,
+                utoken:user_token,
+              },
+          }
+      },function(ret, err){
+        if(ret&&ret.code==200){
+          api.toast({
+              msg: ret.msg,
+              duration: 2000,
+              global:true
+          });
+          $api.rmStorage("trealent_user_id");
+          $api.rmStorage("trealent_user_username");
+          $api.rmStorage("trealent_user_type");
+          $api.rmStorage("trealent_user_token");
+          $api.rmStorage('trealent_user_phone_num');
+          $api.rmStorage('trealent_user_gender');
+          $api.rmStorage('trealent_user_mail');
+          $api.rmStorage('trealent_user_birthday');
+          $api.rmStorage('trealent_user_signature');
+          $api.rmStorage('trealent_user_avatar');
+          $api.rmStorage('trealent_user_local_avatar');
+
+          api.rebootApp();
+        }
+      });
+    }*/
+    }
+
+    function AvatarChg(){
+      api.actionSheet({
+          title: '请选择图片',
+          cancelTitle: '取消',
+          buttons: ['使用相机拍摄','从相册中选择']
+      }, function(ret, err){
+        var index = ret.buttonIndex;
+        if(index==3)return;
+        var method=["camera","album"]
+        api.getPicture({
+            sourceType: method[index-1],
+            encodingType: 'jpg',
+            mediaValue: 'pic',
+            destinationType: 'url',
+            allowEdit: true,
+            quality: 20,
+            saveToPhotoAlbum: false
+        }, function(ret, err){
+          if(ret.data){
+          api.openWin({
+              name: 'avaterSelect',
+              url: './avater_select_win.html',
+              pageParam: {
+                  url:ret.data,
+              },
+              bounces:false,
+          });
+        }
+          else{
+            api.toast({
+                msg: '放弃修改',
+                duration: 2000,
+                location: 'bottom',
+                global:true,
+            });
+            return;
+          }
+        });
+      });
+    }
+
+    function GenderChg(){
+      api.actionSheet({
+          title: '请选择性别',
+          cancelTitle: '取消',
+          buttons: ['男', '女']
+      }, function(ret, err) {
+          var index = ret.buttonIndex;
+          if(index==3)return;
+          editProfile({values:{uid:user_id,utoken:user_token,gender:index-1}},
+            function(){
+              if(index==1){$("#genderImg").attr("src","../image/Trealent/man.png"); $("#genderT").text("男");$api.setStorage('trealent_user_gender',0);}
+              else if(index==2){$("#genderImg").attr("src","../image/Trealent/woman.png"); $("#genderT").text("女");$api.setStorage('trealent_user_gender',1);}
+            });
+      });
+    }
+
+    function passwordChg(){
+      api.openWin({
+          name: 'pwdmodify',
+          url: './pwdModify.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+
+    }
+
+    function EmailChg(){
+
+    }
+
+    function BirthdayChg(){
+      var birthday="1970-01-01";
+      birthday=$("#birthday").text();
+      api.openPicker({
+          type: 'date',
+          date: birthday,
+          title: '选择时间'
+      }, function(ret, err){
+        var newBirthday=ret.year+"-"+ret.month+"-"+ret.day;
+        editProfile({values:{uid:user_id,utoken:user_token,birthday:newBirthday}},
+          function(){
+            $("#birthday").text(newBirthday);
+            $api.setStorage('trealent_user_birthday',newBirthday );
+          });
+      });
+
+    }
+
+    function editProfile(ChgData,func){
+      tlClient.user.editprofile(ChgData,function(ret,err){
+        if(ret&&ret.code==200){
+          api.toast({
+              msg: ret.msg,
+              duration: 2000,
+          });
+          func();
+        }
+        else if(ret&&ret.code==401){
+          api.toast({
+              msg: ret.msg,
+              duration: 2000,
+              location: 'bottom'
+          });
+        }
+        else {
+          api.toast({
+              msg: '网络错误',
+              duration: 2000,
+          });
+        }
+      });
+      /*if(user_token&&user_id){
+      api.ajax({
+          url: 'http://192.168.31.70/api/user/edit_profile',
+          method: 'post',
+          data:ChgData,
+      },function(ret, err){
+        if(ret&&ret.code==200){
+          api.toast({
+              msg: ret.msg,
+              duration: 2000,
+          });
+          func();
+        }
+        else if(ret&&ret.code==401){
+          api.toast({
+              msg: ret.msg,
+              duration: 2000,
+              location: 'bottom'
+          });
+        }
+        else {
+          api.toast({
+              msg: '网络错误',
+              duration: 2000,
+          });
+        }
+      });
+    }*/
+}
+</script>

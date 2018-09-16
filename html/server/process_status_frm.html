@@ -1,0 +1,156 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+    <style>
+    body{
+        background-color: #f5f5f5;
+    }
+    .task-card{
+      width: 90%;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 10px;
+    }
+    .task-card-header{
+      background: -webkit-linear-gradient(left, #868F96 , #596164); /* Safari 5.1 - 6.0 */
+      background: linear-gradient(to right, #868F96 , #596164); /* 标准的语法 */
+      width:100%;
+      height:30px;
+      text-align: center;
+      line-height: 30px;
+      font-size: 18px;
+      font-weight: 400;
+      color: #fff;
+    }
+    .my_padding{
+      height: 20px;
+    }
+    .typecard{
+      width: 50px;
+      text-align: center;
+      height: 100%;
+      color: #fff;
+      background-color: #03a9f4;
+      font-size: 14px;
+      font-weight: 400;
+      border-radius: 5px;
+    }
+    .padding{
+      height: 20px;
+    }
+    .user-card-red{
+      background: -webkit-linear-gradient(bottom right, #F78D91 , #FCA2A6);
+      background: linear-gradient(to top left, #F78D91 , #FCA2A6);
+    }
+    .user-card-green{
+      background: -webkit-linear-gradient(bottom right, #74DFBD , #9BEDD3);
+      background: linear-gradient(to top left, #74DFBD , #9BEDD3);
+    }
+    .user-card-orange{
+      background: -webkit-linear-gradient(bottom right, #FBB57C , #FCD69C);
+      background: linear-gradient(to top left, #FBB57C , #FCD69C);
+    }
+    .aui-progress-bar{
+      background: -webkit-linear-gradient(left, #868F96 , #596164); /* Safari 5.1 - 6.0 */
+      background: linear-gradient(to right, #868F96 , #596164); /* 标准的语法 */
+    }
+    .aui-switch:checked {
+      border-color: #dddddd;
+      background: -webkit-linear-gradient(left, #868F96 , #596164); /* Safari 5.1 - 6.0 */
+      background: linear-gradient(to right, #868F96 , #596164); /* 标准的语法 */
+    }
+    body{
+        background-color: #f5f5f5;
+    }
+    .background-green{
+      background: -webkit-linear-gradient(left, #5FE5FE , #5A8DFE); /* Safari 5.1 - 6.0 */
+      background: linear-gradient(to right, #5FE5FE , #5A8DFE); /* 标准的语法 */
+      height: 30px;
+      width: 100%;
+  }
+  .user-star-flex{
+      display: flex;
+      display:-webkit-flex;
+      margin-top:0.1rem;
+  }
+  </style>
+</head>
+<body>
+  <section class="aui-content">
+        <div class="aui-timeline" style="margin-top:1.5rem">
+          <div class="aui-timeline-item-header" style="color: #757575;font-size: 0.6rem">以下信息更新于2017年</div>
+          <div class="aui-timeline-item">
+              <div class="aui-timeline-item-label aui-bg-info text-light" style="border-radius: 4px">3-23</div>
+              <div class="aui-timeline-item-inner">
+                  <div class="aui-card-list" style="border-radius: 10px;">
+                      <div class="aui-card-list-header aui-card-list-user aui-border-b">
+                          <div class="aui-card-list-user-avatar">
+                              <img src="../../image/Trealent/hover_demo3.png" class="aui-img-round" />
+                          </div>
+                          <div class="aui-card-list-user-name">
+                              <div>一班扛把子</div>
+                              <small>23:33</small>
+                          </div>
+                          <div class="user-star-flex">
+                              <img src="../../image/Trealent/star_lit.png" style="height:15px;width:15px;"/>
+                              <img src="../../image/Trealent/star_lit.png" style="height:15px;width:15px;"/>
+                              <img src="../../image/Trealent/star_lit.png" style="height:15px;width:15px;"/>
+                              <img src="../../image/Trealent/star_lit.png" style="height:15px;width:15px;"/>
+                              <img src="../../image/Trealent/star_unlit.png" style="height:15px;width:15px;"/>
+                          </div>
+
+                      </div>
+                      <div  style="font-size: 0.7rem;margin: 0 0.4rem" >
+                       完成修改pwd_modify页面，header部分背景改为渐变色，去除“唯才”图片，修改确定按钮的样式，改的更小一些并且为圆角
+                     </div>
+                  </div>
+              </div>
+          </div>
+          <div class="aui-timeline-item">
+              <div class="aui-timeline-item-label aui-bg-info text-light" style="border-radius: 4px">3-23</div>
+              <div class="aui-timeline-item-inner">
+                  <div class="aui-card-list" style="border-radius: 10px;">
+                      <div class="aui-card-list-header aui-card-list-user aui-border-b">
+                          <div class="aui-card-list-user-avatar">
+                              <img src="../../image/Trealent/hover_demo3.png" class="aui-img-round" />
+                          </div>
+                          <div class="aui-card-list-user-name">
+                              <div>一班扛把子</div>
+                              <small>23:33</small>
+                          </div>
+                          <div class="user-star-flex">
+                              <img src="../../image/Trealent/star_lit.png" style="height:15px;width:15px;"/>
+                              <img src="../../image/Trealent/star_lit.png" style="height:15px;width:15px;"/>
+                              <img src="../../image/Trealent/star_lit.png" style="height:15px;width:15px;"/>
+                              <img src="../../image/Trealent/star_lit.png" style="height:15px;width:15px;"/>
+                              <img src="../../image/Trealent/star_unlit.png" style="height:15px;width:15px;"/>
+                          </div>
+
+                      </div>
+                      <div  style="font-size: 0.7rem;margin: 0 0.4rem" >
+                       完成修改pwd_modify页面，header部分背景改为渐变色，去除“唯才”图片，修改确定按钮的样式，改的更小一些并且为圆角
+                     </div>
+                  </div>
+              </div>
+          </div>
+
+
+        </div>
+
+    </section>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/aui-tab.js" ></script>
+<script type="text/javascript" src="../../script/aui-toast.js"></script>
+<script type="text/javascript" src="../../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+  apiready=function(){
+    api.parseTapmode();
+  }
+</script>
+</html>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <style>
+        body{
+            background-color: #fff;
+        }
+    	.aui-bar-nav {
+            background-color: #01ccf9;
+
+        }
+
+
+    </style>
+</head>
+<body>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/aui-tab.js" ></script>
+<script type="text/javascript" src="../script/aui-toast.js"></script>
+<script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
+<script>
+  apiready=function(){
+    api.openFrame({
+        name: 'detailFrm',
+        url: './detailfrm.html',
+        rect: {
+            x: 0,
+            y: -1,
+            w: 'auto',
+            h: 'auto'
+        },
+        pageParam: {
+            task_id: api.pageParam.task_id
+        },
+        bounces: true,
+        bgColor: 'rgba(0,0,0,0)',
+        useWKWebView: true,
+    });
+    var tabHeight=51;
+    api.openFrame({
+        name: 'detailfooter',
+        url: './detailfooterfrm.html',
+        bgColor:'rgba(0,0,0,0)',
+        scrollEnabled:false,
+        rect: {
+            x: 0,
+            y: api.winHeight-tabHeight,
+            w: 'auto',
+            h: tabHeight
+        },
+        pageParam: {
+            task_id: api.pageParam.task_id
+        }
+    });
+  }
+</script>
+</html>

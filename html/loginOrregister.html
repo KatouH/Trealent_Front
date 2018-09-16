@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/animate.min.css" />
+    <style>
+    html{
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+    body{
+      height: 100%;
+      overflow: hidden;
+      background-color: #f5f5f5;
+    }
+    .my-card{
+      margin: 10% auto;
+      height: 90%;
+      width: 90%;
+      box-shadow: 0px 2px 10px #ddd;
+      border-radius: 1rem;
+    }
+    .my-card-img{
+      height: 8.0rem;
+      margin:0 auto;
+      margin-top: 7.5rem;
+    }
+    .my-card-btn{
+      margin-top:6.0rem;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-justify-content: center;
+          justify-content: center;
+      -webkit-align-items: center;
+          align-items: center;
+    }
+    .sign-in-btn{
+      margin-left: 0.5rem;
+      height: 2rem;
+      width: 5.8rem;
+      border-radius: 0.6rem;
+      background: -webkit-linear-gradient(bottom right, #9DE4FC , #44BAF9);
+      background: linear-gradient(to top left, #9DE4FC , #44BAF9);
+      text-align: center;
+      line-height: 2rem;
+      color:#fff;
+      font-size: 0.7rem;
+    }
+    .sign-up-btn{
+      margin-right: 0.5rem;
+      height: 2rem;
+      width: 5.8rem;
+      background-color:red;
+      border-radius: 0.6rem;
+      background: -webkit-linear-gradient(bottom right, #EB869A , #E36D63);
+      background: linear-gradient(to top left, #EB869A , #E36D63);
+      text-align: center;
+      line-height: 2rem;
+      color:#fff;
+      font-size: 0.7rem;
+    }
+    </style>
+</head>
+<body>
+  <div class="my-card">
+    <div style="color:rgba(255,255,255,0);">what the fuck?</div>
+    <div><img src="../image/Trealent/bg.png" class="my-card-img"></img></div>
+    <div class="my-card-btn">
+      <div class="sign-up-btn" onclick="goRegister()">注册</div>
+      <div class="sign-in-btn" onclick="goToLogin()">登陆</div>
+    </div>
+  </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/aui-tab.js" ></script>
+<script type="text/javascript" src="../script/aui-toast.js"></script>
+<script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+   apiready=function(){
+     api.addEventListener({
+         name: 'keyback'
+     }, function(ret, err){
+       api.closeWidget({
+           id: 'A6062760158549',
+           retData: {
+               name: 'closeWidget'
+           },
+           animation: {
+               type: 'flip',
+               subType: 'from_bottom',
+               duration: 500
+           }
+       });
+
+     });
+   }
+   function goRegister(){
+     api.openWin({
+         name: 'register',
+         url: './register.html',
+         animation:{
+           type:"push",
+           subType:"from_left",
+           duration:300
+         }
+     });
+   }
+   function goToLogin(){
+     api.execScript({
+         name: 'root',
+         script: 'goToLogin();'
+     });
+
+   }
+</script>
+</html>

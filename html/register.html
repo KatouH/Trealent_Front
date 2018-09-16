@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <title>Title</title>
+    <style>
+        body{
+          background-color: #fff;
+        }
+        .register-vercode-btn {
+            background-color: #fff;
+            border-radius: 1px;
+            border-color: #888;
+            border-width: thin;
+            font-size: 14px;
+            font-weight: 400;
+            text-align: center;
+        } /* Black */
+        .trelent-button{
+            background-color: #32A2f1;
+            font-size: 20px;
+            color: white;
+            text-align: center;
+            height: 50px;
+            line-height: 50px;
+        }
+        .register-form{
+            width: 90%;
+            height: auto;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .register-form-logo{
+            width: 30%;
+            margin: 2rem auto;
+        }
+        .aui-list-item-inner{
+            height: 30px;
+        }
+        .aui-list-item-padding{
+            height: 8px;
+        }
+    </style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav aui-bar-light filter:alpha(opacity=60);" id="register_header">
+            <div tapmode onclick="goBack()" class="aui-pull-left aui-btn"><img src="../image/Trealent/arrow-left-down.png" id="left-btn" style="height:0.9rem;width:0.9rem;"></div>
+        <div class="aui-title" style="font-size: 18px;font-weight: 500;color: #444">注册</div>
+    </header>
+    <div class="register-form">
+        <div class="register-form-logo">
+            <img src="../image/Trealent/logo.png">
+        </div>
+        <div class="aui-content aui-margin-b-15">
+            <div class="aui-list-item-padding"></div>
+            <div class="aui-list-item-input" tapmode style="font-size: 16px;font-weight: 300" id="register_data_type">
+                <label style="margin-right: 30px;"><input class="aui-radio" type="radio" name="demo1" checked="" value="1"> 服务方</label>
+                <label><input class="aui-radio" type="radio" name="demo1" value="0"> 需求方</label>
+            </div>
+            <div class="aui-list-item-padding"></div>
+            <div class="aui-list-item-padding"></div>
+            <ul class="aui-list aui-form-list"style="border 1px solid #000;">
+                <li class="aui-list-item">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-input" style="font-size: 16px;font-weight: 300" >
+                            <input id="register_data_username" type="text" placeholder="请输入用户名">
+                        </div>
+                    </div>
+                </li>
+                <div class="aui-list-item-padding"></div>
+                <li class="aui-list-item">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-input"style="font-size: 16px;font-weight: 300">
+                            <input id="register_data_password" type="password" placeholder="请输入6-12位密码">
+                        </div>
+                    </div>
+                </li>
+                <div class="aui-list-item-padding"></div>
+                <li class="aui-list-item">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-input"style="font-size: 16px;font-weight: 300">
+                            <input id="register_data_checkPassword"type="password" placeholder="请输入确认密码">
+                        </div>
+                    </div>
+                </li>
+                <div class="aui-list-item-padding"></div>
+                <li class="aui-list-item">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-input"style="font-size: 16px;font-weight: 300">
+                            <input id="register_data_real_name" type="text" placeholder="请输入真实姓名">
+                        </div>
+                    </div>
+                </li>
+                <div class="aui-list-item-padding"></div>
+                <li class="aui-list-item">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-input"style="font-size: 16px;font-weight: 300">
+                            <input id="register_data_id_num"type="number" placeholder="请输入身份证号">
+                        </div>
+                    </div>
+                </li>
+                <div class="aui-list-item-padding"></div>
+                <li class="aui-list-item">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-input"style="font-size: 16px;font-weight: 300">
+                            <input id="register_data_phone_num" type="number" placeholder="请输入手机号">
+                        </div>
+                        <div class="aui-list-item-right"style="width: 50%;">
+                            <button type="button" class="register-vercode-btn" tapmode onclick="setTime(this)">获取验证码</button>
+                        </div>
+                    </div>
+                </li>
+                <div class="aui-list-item-padding"></div>
+                <li class="aui-list-item">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-input"style="font-size: 16px;font-weight: 300">
+                            <input id="register_data_vercode" type="number" placeholder="请输入验证码">
+                        </div>
+                    </div>
+                </li>
+                <div class="aui-list-item-padding" style="height: 30px"></div>
+                <div class="trelent-button" tapmode onclick="doRegister()">注册</div>
+            </ul>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/aui-tab.js" ></script>
+<script type="text/javascript" src="../script/aui-toast.js"></script>
+<script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+    apiready=function(){
+        $api.fixStatusBar($("#register_header").get(0));
+        api.addEventListener({
+            name:'viewappear'
+        }, function(ret, err){
+            api.setStatusBarStyle({
+                style: 'dark',
+            });
+        });
+    }
+    function goBack(){
+        api.closeWin();
+    }
+
+    function doRegister() {
+        var username= fetchData("username");
+        var password= fetchData("password");
+        var type= $("input[name='demo1']:checked").val();
+        var real_name= fetchData("real_name");
+        var id_num= fetchData("id_num");
+        var phone_num= fetchData("phone_num");
+        var vercode = fetchData("vercode");
+        var check_password = fetchData("checkPassword");
+        if(password!=check_password){
+          api.toast({
+              msg: '输入密码与确认密码不一致',
+              duration: 2000,
+              location: 'middle'
+          });
+          return;
+        }
+        api.ajax({
+            url: 'http://backend.trealent.com/api/user/register',
+            method: 'post',
+            data: {
+                values: {
+                    username: username,
+                    password: password,
+                    type: type,
+                    real_name: real_name,
+                    phone_num: phone_num,
+                    id_num: id_num,
+                    vercode: vercode
+                }
+            }
+        },function(ret, err){
+            if (ret) {
+                if(ret.code==401){
+                  api.toast({
+                      msg: '信息错误',
+                      duration: 2000,
+                      location: 'middle'
+                  });
+                }else if (ret.code==402) {
+                  api.toast({
+                      msg: '手机格式不正确',
+                      duration: 2000,
+                      location: 'middle'
+                  });
+                }else if (ret.code==403) {
+                  api.toast({
+                      msg: '验证码错误或已失效',
+                      duration: 2000,
+                      location: 'middle'
+                  });
+                }else if (ret.code==404) {
+                  api.toast({
+                      msg: '身份证格式错误',
+                      duration: 2000,
+                      location: 'middle'
+                  });
+                }else if (ret.code==405) {
+                  api.toast({
+                      msg: '个人信息不匹配',
+                      duration: 2000,
+                      location: 'middle'
+                  });
+                }else if (ret.code==406) {
+                  api.toast({
+                      msg: '用户名存在',
+                      duration: 2000,
+                      location: 'middle'
+                  });
+                }else{
+                  api.toast({
+                      msg: '注册成功',
+                      duration: 2000,
+                      location: 'middle'
+                  });
+
+                }
+            } else {
+                api.toast({
+                    msg: '网络错误',
+                    duration: 2000,
+                    location: 'middle'
+                });
+            }
+        });
+    }
+
+    function fetchData(s) {
+        return document.getElementById("register_data_"+s).value;
+    }
+
+    var countdown=60;
+
+    function setTime(val) {
+        var phone_num= fetchData("phone_num");
+        if(countdown==60){
+          if(!(/^0?1[3|4|5|8][0-9]\d{8}$/.test(phone_num))){
+            api.toast({
+                msg: '手机格式不正确',
+                duration: 2000,
+                location: 'middle'
+            });
+            return;
+          }
+          else{
+            sendVerCode();
+          }
+        }
+        if (countdown == 0) {
+            val.disabled=false;
+            val.innerHTML="获取验证码";
+            countdown = 60;
+        } else {
+            val.disabled=true;
+            val.innerHTML="重新发送(" + countdown + ")";
+            countdown--;
+            setTimeout(function() {
+                setTime(val)
+            },1000)
+        }
+    }
+
+    function sendVerCode(){
+      var phone_num= fetchData("phone_num");
+      api.ajax({
+          url: 'http://backend.trealent.com/api/vercode/send',
+          method: 'post',
+          data: {
+              values: {
+                  phone: phone_num
+              }
+          }
+      },function(ret, err){
+          if (ret&&ret.code==402) {
+            api.toast({
+                msg: '手机已被注册了呢',
+                duration: 2000,
+                location: 'middle'
+            });
+          }else if(ret&&ret.code==403){
+            api.toast({
+                msg: '短信发送太频繁~稍后再试',
+                duration: 2000,
+                location: 'middle'
+            });
+          }else if (ret&&ret.code==401) {
+            api.toast({
+                msg: '手机号格式不正确',
+                duration: 2000,
+                location: 'middle'
+            });
+          }
+          else {
+            api.toast({
+                msg:'诶呀~网络貌似罢工了！',
+                duration: 2000,
+            });
+          }
+      });
+    }
+
+</script>
+</html>

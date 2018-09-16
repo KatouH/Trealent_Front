@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+    <style>
+      body{
+        background-color: #fff;
+      }
+      header{
+        width: auto;
+        height: 70px;
+      }
+      .walletCard{
+        width: 85%;
+        margin-bottom: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 15px;
+          position: relative;
+      }
+      .walletCard img{
+        border-radius: 15px;
+      }
+      .user-detail{
+        display: flex;
+        display: -webkit-flex;
+        justify-content: center;;
+        -webkit-justify-content:center;
+        margin-top: 0.6rem;
+      }
+      .user-detail-item{
+        font-size:24px;
+        color:#94D1FF;
+        padding-right: 2rem;
+        padding-left:2rem;
+        border-right: 1px solid #eee;
+      }
+      .user-detail-item-last{
+        font-size:24px;
+        color:#94D1FF;
+        padding-right: 2rem;
+        padding-left:2rem;
+      }
+      .user-detail-item-up{
+        color:#666;
+        font-size:12px;
+        text-align:center
+      }
+      .user-detail-item-down{
+        text-align:center;
+        color:#B4343E;
+        font-size:18px;
+        font-weight:300;
+      }
+        .schoolNameCard{
+            font-size: 18px;
+            color: white;
+            font-weight: 500;
+            position: absolute;
+            margin-left: 70px;
+            margin-top: 28px;
+        }
+    </style>
+</head>
+<body>
+  <header id="my_wallet_header">
+    <a class="aui-iconfont aui-icon-left aui-pull-left" onclick="goBack()"></a>
+  </header>
+
+  <div class="walletCard">
+    <div class="schoolNameCard">华东师范大学</div>
+    <img src="../../image/Trealent/wallet_card.png">
+  </div>
+  <div class="user-detail">
+    <div class="user-detail-item"><div class="user-detail-item-up">余额</div><div class="user-detail-item-down"id="wallet_money">130.72</div></div>
+    <div class="user-detail-item"><div class="user-detail-item-up">入校</div><div class="user-detail-item-down"id="wallet_year">2016</div></div>
+    <div class="user-detail-item-last"><div class="user-detail-item-up">身份</div><div class="user-detail-item-down"id="wallet_identity">学生</div></div>
+  </div>
+  <div style="width: 100%; height: 40px;"></div>
+  <div class="aui-content" style="width: 90%;margin-left: auto;margin-right: auto">
+      <ul class="aui-list">
+          <li class="aui-list-item aui-list-item-middle" style="height: 50px;">
+              <div class="aui-list-item-inner aui-list-item-arrow">
+                  <div class="aui-list-item-title" style="font-size:16px;font-weight:400;">消费记录</div>
+                  <div class="aui-list-item-right">消费记录查询</div>
+          </li>
+          <li class="aui-list-item"style="height: 50px;">
+              <div class="aui-list-item-inner aui-list-item-arrow">
+                  <div class="aui-list-item-title"style="font-size:16px;font-weight:400;">充值</div>
+                  <div class="aui-list-item-right">购买会员福利多多</div>
+              </div>
+          </li>
+          <li class="aui-list-item"style="height: 50px;">
+              <div class="aui-list-item-inner aui-list-item-arrow">
+                  <div class="aui-list-item-title"style="font-size:16px;font-weight:400;">提现</div>
+                  <div class="aui-list-item-right">支付宝、微信</div>
+              </div>
+          </li>
+      </ul>
+  </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/aui-tab.js" ></script>
+<script type="text/javascript" src="../../script/aui-toast.js"></script>
+<script type="text/javascript" src="../../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+    apiready=function(){
+      $api.fixStatusBar($("#my_wallet_header").get(0));
+    }
+    function goBack(){
+      api.closeWin({
+          animation:{
+            type:"push",
+            subType:"from_left",
+            duration:300
+          }
+      });
+    }
+</script>
+</html>

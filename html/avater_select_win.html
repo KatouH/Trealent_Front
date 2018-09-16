@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <style>
+    html{
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+    body{
+      height: 100%;
+      overflow: hidden;
+      background-color: #000;
+    }
+    .footer_csdn{
+    margin:1px 0px 8px 0px;
+    padding:1px 0px 1px 0px;
+    display: block;
+    clear:both;
+    position:absolute;
+    bottom:0;
+    text-align:center;
+    color:rgba(0,0,0,1);
+    font-size: 20px;
+    height: 36px;
+    width:100%;
+    }
+    .avater-setting-btn{
+      float:right;
+      height: 30px;
+      width: 70px;
+      text-align: center;
+      line-height: 30px;
+      background-color: #1CB9F0;
+      border-radius: 4px;
+      color: #fff;
+      font-size:14px;
+      margin-right: 15px;
+    }
+    .aui-bar-nav{
+      background: -webkit-linear-gradient(left, #5FE5FE , #5A8DFE); /* Safari 5.1 - 6.0 */
+      background: linear-gradient(to right, #5FE5FE , #5A8DFE); /* 标准的语法 */
+    }
+    </style>
+</head>
+<body>
+  <header class="aui-bar aui-bar-nav my-detail-header" id="avater-setting-header">
+    <a class="aui-pull-left aui-btn">
+      <img src="../image/Trealent/arrow-left-up.png" id="left-btn" style="height:0.8rem;width:0.8rem;" onclick="goBack()"></img>
+    </a>
+    <div style="position:absolute;margin:0 auto;width:100%">设置头像</div>
+</header>
+  <div class="footer_csdn">
+    <div class="avater-setting-btn" onclick="Finished()">完成</div>
+  </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/aui-tab.js" ></script>
+<script type="text/javascript" src="../script/aui-toast.js"></script>
+<script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
+<script>
+  var user_id=$api.getStorage("trealent_user_id");
+  var user_token=$api.getStorage("trealent_user_token");
+  apiready=function(){
+    $api.fixStatusBar($("#avater-setting-header").get(0));
+    var imgurl=api.pageParam;
+    var FNImageClip = api.require('FNImageClip');
+    var headerh=$api.offset($api.byId('avater-setting-header')).h;
+    FNImageClip.open({
+        rect: {
+            x: 0,
+            y: headerh,
+            w: api.winWidth,
+            h: api.winHeight-140
+        },
+        highDefinition: true,
+        srcPath: imgurl.url,
+        mode: "image",
+        style: {
+            mask: 'rgba(0,0,0,0.5)',
+            clip: {
+                w: api.winWidth*0.7/2,
+                h: api.winWidth*0.7/2,
+                x: api.winWidth*0.15,
+                y: (api.winHeight-50-api.winWidth*0.7)/2,
+                borderColor: '#5A8DFE',
+                borderWidth: 2,
+                appearance: 'circular'
+            }
+        },
+        fixedOn: api.frameName
+    }, function(ret, err) {
+
+    });
+  }
+      function goBack(){
+        api.closeWin({
+          name:"avaterSelect",
+        });
+      }
+      function Finished(){
+        var FNImageClip = api.require('FNImageClip');
+        FNImageClip.save({
+            destPath: 'fs://Trealent/avatar.jpg',
+            copyToAlbum: false,
+            quality: 0.1
+        }, function(ret, err) {
+          if(ret){
+          api.ajax({
+              url: 'http://backend.trealent.com/api/user/upload_avatar',//http://192.168.31.70/api/user/upload_avatar
+              method: 'post',
+              data: {
+                  values:{
+                    uid:user_id,
+                    utoken:user_token
+                  },
+                  files: {
+                      image: ret.destPath
+                  }
+              }
+          },function(ret, err){
+            if(ret&&ret.code==200){
+              api.toast({
+                  msg: ret.msg,
+                  duration: 2000,
+                  location: 'bottom',
+                  global:true
+              });
+            }
+            else if(ret&&(ret.code==401||ret.code==402)){
+              api.toast({
+                  msg: ret.msg,
+                  duration: 2000,
+                  location: 'bottom',
+                  global:true
+              });
+            }
+            else{
+              api.toast({
+                  msg: '网络错误',
+                  duration: 2000,
+                  location: 'bottom',
+                  global:true
+              });
+
+            }
+          });
+          $api.setStorage('trealent_user_local_avatar', ret.destPath);
+          api.execScript({
+              name: 'personalSettingWin',
+              frameName: 'personalsetting',
+              script: 'AvaterDomChg();'
+          });
+          api.execScript({
+              name: 'root',
+              frameName: 'my',
+              script: 'MyAvatarChg();'
+          });
+        }
+        });
+        goBack();
+      }
+</script>
+</html>

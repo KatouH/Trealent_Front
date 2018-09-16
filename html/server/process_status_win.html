@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>总进度</title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+    <style>
+        body{
+            background-color: #f5f5f5;
+        }
+        .background-green{
+          background: -webkit-linear-gradient(left, #5FE5FE , #5A8DFE); /* Safari 5.1 - 6.0 */
+          background: linear-gradient(to right, #5FE5FE , #5A8DFE); /* 标准的语法 */
+          height: 30px;
+          width: 100%;
+      }
+      .user-star-flex{
+          display: flex;
+          display:-webkit-flex;
+          margin-top:0.1rem;
+      }
+    </style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav background-green" id= "process_status_header">
+      <div tapmode onclick="goBack()" class="aui-pull-left aui-btn"><img src="../../image/Trealent/arrow-left-white.png" id="left-btn" style="height:0.9rem;width:0.9rem;"></div>
+      <div class="aui-title" style="font-size: 20px;font-weight: 500;color: #fff;border-radius:10px;">总进度</div>
+  </header>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/aui-tab.js" ></script>
+<script type="text/javascript" src="../../script/aui-toast.js"></script>
+<script type="text/javascript" src="../../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+  apiready=function(){
+    api.parseTapmode();
+    var header = $api.byId('process_status_header');
+    $api.fixStatusBar(header);
+    var headerPos = $api.offset(header);
+    var body_h = $api.offset($api.dom('body')).h;
+    api.addEventListener({
+        name:'viewappear'
+    }, function(ret, err){
+       api.setStatusBarStyle({
+           style: 'light',
+       });
+    });
+    api.openFrame({
+        name: 'process_status_frm',
+        url: 'process_status_frm.html',
+        bounces: true,
+        bgColor:'rgba(0,0,0,0)',
+        pageParam: {header:headerPos.h},
+        rect: {
+            x: 0,
+            y: headerPos.h,
+            w: 'auto',
+            h: 'auto'
+        }
+    })
+  }
+  function goBack(){
+    api.closeWin({
+        animation:{
+          type:"push",
+          subType:"from_left",
+          duration:300
+        }
+    });
+  }
+
+</script>
+</html>

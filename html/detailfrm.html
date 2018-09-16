@@ -1,0 +1,720 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <style>
+    body{
+        background-color: #f5f5f5;
+    }
+    .my-detail-header{
+      width:100%;
+      position: fixed;
+      z-index: 999;
+    }
+    .header-border-line{
+      border-bottom:1px solid #eee;
+    }
+  .aui-bar-nav {
+        background-color: rgba(255,255,255,0);
+    }
+  .back-btn{
+    background-color: rgb(102, 102, 102);
+    border-radius:50%;
+    height:1.2rem;width:1.2rem;
+    padding-top: 0.2rem;
+    padding-left: 0.15rem;
+  }
+  .more-btn{
+    background-color: rgb(102, 102, 102);
+    border-radius:50%;
+    height:1.2rem;width:1.2rem;
+    padding-top: 0.2rem;
+    padding-left: 0.2rem;
+  }
+  .info-title{
+    display: flex;
+    display:-webkit-flex;
+    justify-content: space-between;
+    -webkit-justify-content:space-between;
+    -webkit-align-items: center;
+        align-items: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.5rem 0.8rem;
+  }
+  .item-min{
+    width: 2.5rem;
+    height: 1.0rem;
+    border-radius: 10px;
+    margin-left: 15px;
+    float:right;
+  }
+  .item-min-font{
+    font-size: 15px;
+    text-align: center;
+    line-height: 1.1rem;
+    color: #fff;
+  }
+  .info-content{
+    display: flex;
+    display:-webkit-flex;
+    justify-content: space-between;
+    -webkit-justify-content:space-between;
+    -webkit-align-items: center;
+        align-items: center;
+  }
+  .info-content-right{
+    -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: flex-start;
+          justify-content: flex-start;;
+      -webkit-flex-wrap:nowrap;
+          flex-wrap: nowrap;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+          align-items: center;
+    }
+  .info-price{
+    display: flex;
+    display:-webkit-flex;
+    justify-content: flex-start;
+    -webkit-justify-content:flex-start;
+    font-size: 0.7rem;
+    padding-left: 0.7rem;
+    color:#aaa;
+  }
+  .info-status{
+    font-size: 0.55rem;
+    color:#aaa;
+    margin-right: 0.7rem;
+    margin-bottom: 0.2rem;
+  }
+  .info-logo{
+    border-radius: 50%;
+    border: 1px solid #aaa;
+    margin: 0.3rem 0.2rem;
+  }
+  .box-contact{
+    padding: 0rem 0.2rem;
+    width: 3.6rem;
+    height: 1.2rem;
+    border-radius: 0.2rem;
+    font-size: 0.75rem;
+    border: 1px solid #FF8C00;
+    color:#FF8C00;
+    text-align: center;
+  }
+  .intro{
+    margin-top:1.0rem;
+    background-color: #fff;
+  }
+  .intro-title{
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.4rem 0.8rem;
+  }
+  .intro-content{
+    color:#777;
+    border-top: 1px solid #eee;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.65rem;
+  }
+  .text-light {
+    color: #ffffff;
+}
+.aui-card-list-header,
+.aui-card-list-footer{
+  min-height: 0rem;
+  padding: 0.3rem 0.6rem;
+}
+.aui-card-list-header{
+  font-size: 0.75rem;
+}
+.box-column-bid{
+  box-sizing: border-box;
+  -webkit-box-sizing:border-box;
+  width: 8%;
+  margin:0% 1% 2% 2%;
+  float:left;
+}
+.box-column-bid-content{
+  font-size: 12px;
+  color:#999999;
+  box-sizing: border-box;
+  -webkit-box-sizing:border-box;
+  width: 16%;
+  margin: 0% 0% 2% 0%;
+}
+.comment-content{
+  font-size: 0.7rem;
+  color:#777;
+}
+.info-content-stars{
+    position: relative;
+    width: 3.5rem;
+    height: 0.7rem;
+    display: block;
+    background-image: url(../image/Trealent/star_unlit.png);
+    background-repeat: repeat-x;
+    background-position: left;
+    background-size: contain;
+}
+.info-content-stars .right-stars-top{
+    width: 70%;
+    height: 0.7rem;
+    display: block;
+    background-image: url(../image/Trealent/star_lit.png);
+    background-repeat: repeat-x;
+    background-position: left;
+    background-size: contain;
+}
+.aui-list-item-text .info-content-stars{
+  width:2.5rem;height:0.5rem;
+}
+.aui-list-item-text .info-content-stars .right-stars-top{
+  height: 0.5rem;
+}
+  </style>
+</head>
+<body>
+  <header class="aui-bar aui-bar-nav my-detail-header" id="detail-header">
+    <a class="aui-pull-left aui-btn">
+      <div class="back-btn" id="bgLeft" onclick="Back()"><img src="../image/Trealent/arrow-left-up.png" id="left-btn" style="height:0.8rem;width:0.8rem;"></img></div>
+    </a>
+    <a class="aui-pull-right aui-btn">
+      <div class="more-btn" id="bgMore" tapmode onclick="openShareBox()"><img src="../image/Trealent/more_up.png" id="more-btn" style="height:0.8rem;width:0.8rem;"></img></div>
+    </a>
+</header>
+    <div class="aui-card-list-content">
+        <img class="card-img-setting" id="task_img" src="../image/Trealent/slider_example.png" />
+        <div style="background-color:#fff;">
+          <div class="info-title">
+            <div id="task_title">智慧出行App Logo设计</div>
+            <div class="item-min item-min-font" id="task_type" style="background-color:#7be0c0;font-weight:300;font-size:0.65rem;">设计</div>
+          </div>
+          <div class="info-content" style="margin-bottom:0.2rem;"><div class="info-price">价格<p style="color:#FF8C00;margin-left:0.2rem;"id="task_reward">￥200</p></div><div class="info-status" id="task_status">竞标中</div></div>
+          <div class="info-content" style="border-top: 1px solid #eee;margin:0rem 0.6rem;padding:0.6rem 0rem;">
+            <div class="info-content-right">
+              <img src="../image/Trealent/me_hover.png" id="demander_user_avatar" style="height:1.6rem;width:1.6rem;" class="info-logo"></img>
+              <div style="margin:0rem 0.3rem;">
+                  <div style="font-size:0.7rem;font-weight:500;color:#777" id="demander_username">就是我</div>
+                  <div class="info-content-stars">
+                      <div class="right-stars-top" id="credoit_star"></div>
+                  </div>
+              </div>
+            </div>
+            <div class="box-contact info-content"><img src="../image/Trealent/contact.png" style="height:0.8rem;width:0.8rem;"></img>联系我</div>
+          </div>
+        </div>
+    </div>
+    <div class="intro">
+      <div class="intro-title">简介</div>
+      <div class="intro-content" id="task_content">
+              1、logo以科技为概念，以绿色为基础，以联想为依据，以充分展示“捷盛化工”以"科技绿色服务生活"的理念。<br>
+              2、本logo构成中以圆，五边形基本要素，易联想到分子、原子的结构构成，符合企业的行业特征；五角形内是“J”的变形为一只向上的飞鸟。以此昭示企业的文化与事业发展，可谓：形神合一，无往不利。<br>
+              3、本logo以绿、天蓝、橙为主色。外圆结构用绿色，代表自然、健康、稳重；五边形用红黄渐变，象征太阳的光芒，代表希望、活力、力量、团结；变形的“J”用天蓝色，代表科技、发展、进取。<br>
+              4、本logo可延伸性理解度很广，是一个易辩，易读、易记的良好代言形象。<br>
+              5、该logo图文化，不仅是当国际设计艺术风格，亦是当代企业的时代风范展示，以简捷明快的图形化语言与社会大众沟通，使企业信息得以快速传递，并形成品牌信息文化的沉淀。<br>
+      </div>
+    </div>
+    <div class="intro">
+      <div class="intro-title">任务状态</div>
+      <div class="intro-content" style="background-color:#f5f5f5;">
+        <section class="aui-content">
+          <div class="aui-timeline">
+              <div class="aui-timeline-item-header">数据更新于2017年1月8日 23:22</div>
+
+              <div class="aui-timeline-item">
+                  <div class="aui-timeline-item-label aui-bg-info text-light" style="border-radius:0.2rem;">已完成</div>
+                  <div class="aui-timeline-item-inner" style="border-radius:0.2rem;">
+                      <div class="aui-card-list "style="border-radius:0.4rem;">
+                          <div class="aui-card-list-header aui-border-b">
+                              <div>任务完成</div>
+                              <i class="aui-iconfont aui-icon-star aui-text-danger"></i>
+                          </div>
+                          <div class="aui-card-list-content-padded">
+                              任务完成，用户已确认，项目展示
+                              <img src="../image/l2.png">
+                          </div>
+                          <div class="aui-card-list-footer aui-border-t aui-font-size-12">
+                              <div><i class="aui-iconfont aui-icon-note aui-font-size-14"></i> 666</div>
+                              <div><i class="aui-iconfont aui-icon-laud aui-font-size-14"></i> 888</div>
+                              <div><i class="aui-iconfont aui-icon-star aui-font-size-14"></i> 888</div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="aui-timeline-item">
+                  <div class="aui-timeline-item-label aui-bg-warning text-light" style="border-radius:0.2rem;">竞标</div>
+                  <div class="aui-timeline-item-inner" style="border-radius:0.2rem;">
+                    <div class="aui-card-list" style="border-radius:0.4rem;">
+                        <div class="aui-card-list-header aui-border-b">竞标情况</div>
+                        <div class="aui-card-list-content" style="overflow-y:auto;height:10rem;">
+                            <ul class="aui-list aui-media-list aui-list-noborder">
+                                <li class="aui-list-item aui-list-item-middle">
+                                    <div class="aui-media-list-item-inner">
+                                        <div class="aui-list-item-media" style="width: 2.6rem;">
+                                            <img src="../image/demo2.png" class="aui-img-round" >
+                                        </div>
+                                        <div class="aui-list-item-inner aui-list-item-arrow">
+                                            <div class="aui-list-item-text">
+                                                <div class="aui-list-item-title aui-font-size-14">AUI</div>
+                                                <div class="aui-list-item-right">2017-8-18</div>
+                                            </div>
+                                            <div class="aui-list-item-text">
+                                              <div class="info-content-stars">
+                                                  <div class="right-stars-top"></div>
+                                              </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="aui-list-item aui-list-item-middle">
+                                    <div class="aui-media-list-item-inner">
+                                        <div class="aui-list-item-media" style="width: 2.6rem;">
+                                            <img src="../image/demo1.png" class="aui-img-round" >
+                                        </div>
+                                        <div class="aui-list-item-inner aui-list-item-arrow">
+                                            <div class="aui-list-item-text">
+                                                <div class="aui-list-item-title aui-font-size-14">AUI</div>
+                                                <div class="aui-list-item-right">2017-8-17</div>
+                                            </div>
+                                            <div class="aui-list-item-text">
+                                              <div class="info-content-stars">
+                                                  <div class="right-stars-top"></div>
+                                              </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="aui-list-item aui-list-item-middle">
+                                    <div class="aui-media-list-item-inner">
+                                        <div class="aui-list-item-media" style="width: 2.6rem;">
+                                            <img src="../image/demo1.png" class="aui-img-round" >
+                                        </div>
+                                        <div class="aui-list-item-inner aui-list-item-arrow">
+                                            <div class="aui-list-item-text">
+                                                <div class="aui-list-item-title aui-font-size-14">AUI</div>
+                                                <div class="aui-list-item-right">2017-8-18</div>
+                                            </div>
+                                            <div class="aui-list-item-text">
+                                              <div class="info-content-stars">
+                                                  <div class="right-stars-top"></div>
+                                              </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="aui-list-item aui-list-item-middle">
+                                    <div class="aui-media-list-item-inner">
+                                        <div class="aui-list-item-media" style="width: 2.6rem;">
+                                            <img src="../image/demo3.png" class="aui-img-round" >
+                                        </div>
+                                        <div class="aui-list-item-inner aui-list-item-arrow">
+                                            <div class="aui-list-item-text">
+                                                <div class="aui-list-item-title aui-font-size-14">AUI</div>
+                                                <div class="aui-list-item-right">2017-8-18</div>
+                                            </div>
+                                            <div class="aui-list-item-text">
+                                              <div class="info-content-stars">
+                                                  <div class="right-stars-top"></div>
+                                              </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="aui-list-item aui-list-item-middle">
+                                    <div class="aui-media-list-item-inner">
+                                        <div class="aui-list-item-media" style="width: 2.6rem;">
+                                            <img src="../image/demo4.png" class="aui-img-round" >
+                                        </div>
+                                        <div class="aui-list-item-inner aui-list-item-arrow">
+                                            <div class="aui-list-item-text">
+                                                <div class="aui-list-item-title aui-font-size-14">AUI</div>
+                                                <div class="aui-list-item-right">2017-8-18</div>
+                                            </div>
+                                            <div class="aui-list-item-text">
+                                              <div class="info-content-stars">
+                                                  <div class="right-stars-top"></div>
+                                              </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="aui-list-item aui-list-item-middle">
+                                    <div class="aui-media-list-item-inner">
+                                        <div class="aui-list-item-media" style="width: 2.6rem;">
+                                            <img src="../image/demo4.png" class="aui-img-round" >
+                                        </div>
+                                        <div class="aui-list-item-inner aui-list-item-arrow">
+                                            <div class="aui-list-item-text">
+                                                <div class="aui-list-item-title aui-font-size-14">AUI</div>
+                                                <div class="aui-list-item-right">2017-8-18</div>
+                                            </div>
+                                            <div class="aui-list-item-text">
+                                              <div class="info-content-stars">
+                                                  <div class="right-stars-top"></div>
+                                              </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="aui-list-item aui-list-item-middle">
+                                    <div class="aui-media-list-item-inner">
+                                        <div class="aui-list-item-media" style="width: 2.6rem;">
+                                            <img src="../image/demo2.png" class="aui-img-round" >
+                                        </div>
+                                        <div class="aui-list-item-inner aui-list-item-arrow">
+                                            <div class="aui-list-item-text">
+                                                <div class="aui-list-item-title aui-font-size-14">AUI</div>
+                                                <div class="aui-list-item-right">2017-8-18</div>
+                                            </div>
+                                            <div class="aui-list-item-text">
+                                              <div class="info-content-stars">
+                                                  <div class="right-stars-top"></div>
+                                              </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="aui-list-item aui-list-item-middle">
+                                    <div class="aui-media-list-item-inner">
+                                        <div class="aui-list-item-media" style="width: 2.6rem;">
+                                            <img src="../image/demo1.png" class="aui-img-round" >
+                                        </div>
+                                        <div class="aui-list-item-inner aui-list-item-arrow">
+                                            <div class="aui-list-item-text">
+                                                <div class="aui-list-item-title aui-font-size-14">AUI</div>
+                                                <div class="aui-list-item-right">2017-8-18</div>
+                                            </div>
+                                            <div class="aui-list-item-text">
+                                              <div class="info-content-stars">
+                                                  <div class="right-stars-top"></div>
+                                              </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="aui-card-list-footer aui-text-center aui-border-t">
+                          <div class="box-column-bid"><img src="../image/Trealent/bid.png" style="height:18px;width:18px;"></img></div>
+                          <div class="box-column-bid-content">8/20</div>
+                        </div>
+                    </div>
+                  </div>
+              </div>
+              <div class="aui-timeline-item">
+                  <div class="aui-timeline-item-label aui-bg-success text-light" style="border-radius:0.2rem;">发布</div>
+                  <div class="aui-timeline-item-inner">
+                    <div class="aui-card-list"style="border-radius:0.4rem;">
+                        <div class="aui-card-list-header">
+                          就是我发布任务
+                        </div>
+                        <div class="aui-card-list-footer">
+                            2017年7月12日
+                        </div>
+                    </div>
+                  </div>
+          </div>
+
+      </section>
+      </div>
+    </div>
+  </div>
+  <div class="intro"style="padding-bottom:2rem;">
+    <div class="intro-title">评论区</div>
+    <div class="intro-content" style="border:none;">
+      <div class="aui-content">
+          <ul class="aui-list aui-media-list">
+              <li class="aui-list-item aui-list-item-middle"style="padding-bottom:1.2rem;">
+                  <div class="aui-media-list-item-inner">
+                      <div class="aui-list-item-media" style="width: 2.4rem;">
+                          <img src="../image/demo2.png" class="aui-img-round aui-list-img-sm"style="height:1.6rem;width:1.6rem;">
+                      </div>
+                      <div class="aui-list-item-inner">
+                          <div class="aui-list-item-text">
+                              <div class="aui-list-item-title aui-font-size-12">
+                                <div class="aui-list-item-title aui-font-size-12">
+                                  <div class="info-content-right">
+                                    <div style="margin-right:0.4rem;">AUI</div>
+                                    <div class="info-content-stars">
+                                        <div class="right-stars-top"></div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="aui-list-item-right"><img src="../image/Trealent/good_unlit.png"style="height:0.9rem;width:0.9rem;"></img></div>
+                          </div>
+                          <div class="aui-list-item-text" style="font-size:0.6rem;">
+                              第1楼 | 01-12
+                          </div>
+                      </div>
+                  </div>
+                  <div class="comment-content">
+                    JavaScript 变量生命周期在它声明时初始化。
+
+                    局部变量在函数执行完毕后销毁。
+
+                    全局变量在页面关闭后销毁。
+                  </div>
+              </li>
+              <li class="aui-list-item aui-list-item-middle"style="padding-bottom:1.2rem;">
+                  <div class="aui-media-list-item-inner">
+                      <div class="aui-list-item-media" style="width: 2.4rem;">
+                          <img src="../image/demo2.png" class="aui-img-round aui-list-img-sm"style="height:1.6rem;width:1.6rem;">
+                      </div>
+                      <div class="aui-list-item-inner">
+                          <div class="aui-list-item-text">
+                              <div class="aui-list-item-title aui-font-size-12">
+                                <div class="aui-list-item-title aui-font-size-12">
+                                  <div class="info-content-right">
+                                    <div style="margin-right:0.4rem;">AUI</div>
+                                    <div class="info-content-stars">
+                                        <div class="right-stars-top"></div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="aui-list-item-right"><img src="../image/Trealent/good_unlit.png"style="height:0.9rem;width:0.9rem;"></img></div>
+                          </div>
+                          <div class="aui-list-item-text" style="font-size:0.6rem;">
+                              第2楼 | 01-12
+                          </div>
+                      </div>
+                  </div>
+                  <div class="comment-content">
+                    JavaScript 变量生命周期在它声明时初始化。
+
+                    局部变量在函数执行完毕后销毁。
+
+                    全局变量在页面关闭后销毁。
+                  </div>
+              </li>
+              <li class="aui-list-item aui-list-item-middle"style="padding-bottom:1.2rem;">
+                  <div class="aui-media-list-item-inner">
+                      <div class="aui-list-item-media" style="width: 2.4rem;">
+                          <img src="../image/demo2.png" class="aui-img-round aui-list-img-sm"style="height:1.6rem;width:1.6rem;">
+                      </div>
+                      <div class="aui-list-item-inner">
+                          <div class="aui-list-item-text">
+                              <div class="aui-list-item-title aui-font-size-12">
+                                <div class="info-content-right">
+                                  <div style="margin-right:0.4rem;">AUI</div>
+                                  <div class="info-content-stars">
+                                      <div class="right-stars-top"></div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="aui-list-item-right"><img src="../image/Trealent/good_unlit.png"style="height:0.9rem;width:0.9rem;"></img></div>
+                          </div>
+                          <div class="aui-list-item-text" style="font-size:0.6rem;">
+                              第3楼 | 01-12
+                          </div>
+                      </div>
+                  </div>
+                  <div class="comment-content">
+                    JavaScript 变量生命周期在它声明时初始化。
+
+                    局部变量在函数执行完毕后销毁。
+
+                    全局变量在页面关闭后销毁。
+                  </div>
+              </li>
+              <li class="aui-list-item aui-list-item-middle"style="padding-bottom:1.2rem;">
+                  <div class="aui-media-list-item-inner">
+                      <div class="aui-list-item-media" style="width: 2.4rem;">
+                          <img src="../image/demo2.png" class="aui-img-round aui-list-img-sm"style="height:1.6rem;width:1.6rem;">
+                      </div>
+                      <div class="aui-list-item-inner">
+                          <div class="aui-list-item-text">
+                              <div class="aui-list-item-title aui-font-size-12">
+                                <div class="aui-list-item-title aui-font-size-12">
+                                  <div class="info-content-right">
+                                    <div style="margin-right:0.4rem;">AUI</div>
+                                    <div class="info-content-stars">
+                                        <div class="right-stars-top"></div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="aui-list-item-right"><img src="../image/Trealent/good_unlit.png"style="height:0.9rem;width:0.9rem;"></img></div>
+                          </div>
+                          <div class="aui-list-item-text" style="font-size:0.6rem;">
+                              第4楼 | 01-12
+                          </div>
+                      </div>
+                  </div>
+                  <div class="comment-content">
+                    JavaScript 变量生命周期在它声明时初始化。
+
+                    局部变量在函数执行完毕后销毁。
+
+                    全局变量在页面关闭后销毁。
+                    JavaScript 变量生命周期在它声明时初始化。
+
+                    局部变量在函数执行完毕后销毁。
+
+                    全局变量在页面关闭后销毁。
+                    JavaScript 变量生命周期在它声明时初始化。
+
+                    局部变量在函数执行完毕后销毁。
+
+                    全局变量在页面关闭后销毁。
+                    JavaScript 变量生命周期在它声明时初始化。
+
+                    局部变量在函数执行完毕后销毁。
+
+                    全局变量在页面关闭后销毁。
+                  </div>
+              </li>
+          </ul>
+      </div>
+      <div class="aui-card-list-footer aui-text-center">
+        暂无更多
+      </div>
+    </div>
+  </div>
+</body>
+
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/aui-tab.js" ></script>
+<script type="text/javascript" src="../script/aui-toast.js"></script>
+<script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="../script/aui-sharebox.js" ></script>
+<script type="text/javascript" src="../script/trealent-client.js"></script>
+<script type="text/javascript">
+  var user_id=$api.getStorage('trealent_user_id');
+  var task_id=0;
+  apiready=function(){
+    api.parseTapmode();
+    $api.fixStatusBar($("#detail-header").get(0));
+    task_id=api.pageParam.task_id;
+    initDom();
+  }
+
+  function initDom(){
+    tlClient.task.getTaskDetailInfo(task_id,function(ret,err){
+      if(ret&&ret.code==200){
+        $("#task_title").text(ret.data.title);
+        switch (ret.data.type_id) {
+            case 1:
+              $("#task_type").text("设计");
+              $("#task_type").css('background-color',"#7be0c0");
+              break;
+            case 2:
+              $("#task_type").text("开发");
+              $("#task_type").css('background-color',"#FCC58B");
+              break;
+            case 3:
+              $("#task_type").text("多媒体");
+              $("#task_type").css('background-color',"#FA9B9F");
+              break;
+            case 4:
+              $("#task_type").text("文案");
+              $("#task_type").css('background-color',"#7be0c0");
+              break;
+          default:
+        }
+        $("#task_reward").text(ret.data.reward_amount);
+        $("#demander_user_avatar").attr('src',ret.data.demander.avatar);
+        $("#demander_username").text(ret.data.demander.username);
+        $("#credoit_star").css('width',ret.data.demander.credit+"%");
+        $("#task_content").text(ret.data.content);
+      }
+    })
+  }
+
+  function goBack(){
+    api.closeWin({
+        animation:{
+          type:"push",
+          subType:"from_left",
+          duration:300
+        }
+    });
+  }
+
+
+
+  function Back(){
+    api.closeWin({
+        name: 'detailWin'
+    });
+  }
+
+  var sharebox = new auiSharebox();
+  function openShareBox(){
+    {
+        sharebox.init({
+            frameBounces:true,//当前页面是否弹动，（主要针对安卓端）
+            buttons:[{
+                image:'../image/share/wx.png',
+                text:'微信',
+                value:'wx'//可选
+            },{
+                image:'../image/share/wx-circle.png',
+                text:'朋友圈',
+                value:'wx-circle'
+            },{
+                image:'../image/share/qq.png',
+                text:'QQ好友',
+                value:'qq'
+            },{
+                image:'../image/share/qzone.png',
+                text:'QQ空间',
+                value:'qq-qzone'
+            },{
+                image:'../image/share/qq-weibo.png',
+                text:'QQ微博'
+            },{
+                image:'../image/share/sina-weibo.png',
+                text:'新浪微博'
+            },{
+                image:'../image/share/message.png',
+                text:'短信'
+            }],
+            col:5,
+            cancelTitle:'关闭'//可选,当然也可以采用下面的方式使用图标
+            // cancelTitle:'<i class="aui-iconfont aui-icon-close aui-font-size-16"></i>'//可选
+        },function(ret){
+            if(ret){
+                //document.getElementById("button-index").textContent = ret.buttonIndex;
+                //document.getElementById("button-value").textContent = ret.buttonValue;
+            }
+        })
+    }
+  }
+   $(window).scroll(function(){
+     var scrollY=$(window).scrollTop();
+     var boderPos=120;
+     if(scrollY<boderPos){
+       var ratio=scrollY/boderPos;
+       var ratio2=(boderPos-scrollY)/boderPos;
+       $("#detail-header").css("background-color","rgba(255,255,255,"+ratio+")");
+       $("#detail-header").removeClass("header-border-line");
+       $('#bgLeft').css("background-color","rgba(102,102,102,"+ratio2+")");
+       $('#bgMore').css("background-color","rgba(102,102,102,"+ratio2+")");
+       $("#left-btn").attr("src","../image/Trealent/arrow-left-up.png");
+       $("#more-btn").attr("src","../image/Trealent/more_up.png");
+     }
+     else{
+       $("#detail-header").css("background-color","#fff");
+       $("#detail-header").addClass("header-border-line");
+       $('#bgLeft').css("background-color","rgba(102,102,102,0)");
+       $('#bgMore').css("background-color","rgba(102,102,102,0)");
+       $("#left-btn").attr("src","../image/Trealent/arrow-left-down.png");
+       $("#more-btn").attr("src","../image/Trealent/more_down.png");
+     }
+   });
+
+</script>
+</html>

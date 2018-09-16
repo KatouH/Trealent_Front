@@ -1,0 +1,397 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <style>
+    body{
+      background-color: #fff;
+    }
+    .task-card{
+      width: 95%;
+      height: 120px;
+    }
+    .task-card-img{
+      width: 100%;
+      height: 110px;
+      float: left;
+      align-self: center;
+      margin-top: 5px;
+      background-color: #F8F8F8;
+      border-radius: 10px;
+    }
+    .task-card-img img{
+      width:100%;
+      height:100%;
+      border-radius: 10px;
+    }
+    .task-card-content{
+      height: 120px;
+      width: auto;
+      margin: 0.5rem;
+      margin-top: 0rem;
+      float: left;
+    }
+    .task-card-content-title{
+      font-size: 16px;
+      font-weight: 400;
+      color: #444;
+      margin-bottom: 2px;
+    }
+    .task-card-content-body{
+      font-size: 13px;
+      font-weight: 300;
+      color: #777;
+      margin-bottom: 0.3rem;
+    }
+    .task-card-type{
+      height: 13px;
+      display: flex;
+      margin-bottom: 0.3rem;
+    }
+    .task-card-button{
+      width: auto;
+      height: 14px;
+      text-align: center;
+      border-radius: 3px;
+      align-self: center;
+      margin-right: 0.3rem;
+      float: left;
+      display: flex;
+    }
+    .task-card-button div{
+      width: auto;
+      align-self: center;
+      font-size: 11px;
+      font-weight: 300;
+      color: #fff;
+      height: 13px;
+      line-height: 13px;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .task-card-time{
+      font-size: 11px;
+      font-weight: 300;
+      line-height: 25px;
+      color: #aaa;
+      align-self: center;
+    }
+    .task-card-content-footer{
+      height: 15px;
+      width: 100%;
+      text-align: center;
+    }
+    .demander-avator{
+      width: 18px;
+      height: 18px;
+      border:1px solid #ccc;
+      border-radius: 50%;
+      align-self: center;
+    }
+    .demander-name{
+      font-size: 11px;
+      font-weight: 300;
+      margin-left: 0.3rem;
+      margin-right: 0.3rem;
+      color: #aaa;
+      align-self: center;
+    }
+    .task-card-footer-comment{
+      align-self: center;
+    }
+    .task-card-footer-comment-content{
+      font-size: 11px;
+      font-weight: 300;
+      line-height: 30px;
+      color:#aaa;
+      margin-right: 0.5rem;
+      align-self: center;
+    }
+    .task-card-footer-bid{
+      align-self: center;
+    }
+    .task-card-footer-bid-content{
+      font-size: 11px;
+      font-weight: 300;
+      color:#aaa;
+      align-self: center;
+      margin-right: 0.5rem;
+    }
+    .task-card-footer-right{
+      display: flex;
+      float: right;
+      height: 15px;
+    }
+    .task-card-footer-left{
+      display: flex;
+      float: left;
+      height: 15px;
+    }
+    .my_padding{
+      height: 3px;
+    }
+    .background-red{
+      background:url(../image/Trealent/red_bg.png)  no-repeat;
+      text-align: center;
+    }
+    .background-green{
+      background:url(../image/Trealent/green_bg.png)  no-repeat;
+    }
+    .background-orange{
+      background:url(../image/Trealent/orange_bg.png)  no-repeat;
+    }
+    .aui-card-list-more{
+        font-size:14px;
+        line-height: 14px;
+        min-height: 14px;
+        color:#BCBCBC !important;
+    }
+    .loading-mask{
+      position: fixed;;
+      z-index: 1000;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255,255,255,1);
+      text-align: center;
+    }
+    .loading{
+      margin: 0.75rem auto;
+      height: 1.2rem;
+      width: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+  <div id="loading-mask" class="loading-mask"><img src="../image/Trealent/bars_green.svg" class="loading"></div>
+  <div id="list-taskcard"></div>
+</body>
+<script type="text/javascript" src="../script/doT.min.js" ></script>
+
+
+<script id="tpl-list-taskcard" type="text/dot-tpl">
+<div id="card-box">
+{{~it:value:index}}
+<div class="aui-content-padded task-card" id="{{=value.id}}" onclick="openDetailWin(this.id)">
+    <div class="aui-col-xs-5">
+      <div class="task-card-img"></div>
+    </div>
+    <div class="aui-col-xs-7">
+      <div class="task-card-content">
+        <div class="task-card-content-title aui-ellipsis-1">{{=value.title}}</div>
+        <div class="task-card-content-body aui-ellipsis-2">
+          {{=value.desc}}<br>
+        </div>
+        <div class="task-card-type">
+          <div class="task-card-button background-green"><div>&nbsp;{{=type_return(value.type_id).type}}&nbsp;</div></div>
+          <div class="task-card-time">{{=value.create_time}}</div>
+        </div>
+        <div class="task-card-content-footer">
+          <div class="task-card-footer-left">
+            <div class="demander-avator">
+              <img src="{{=value.demander.avatar}}"></img>
+            </div>
+            <div class="demander-name">{{=value.demander.username}}</div>
+          </div>
+          <div class="task-card-footer-right">
+            <div class="task-card-footer-comment"><img src="../image/Trealent/comment.png" style="height:13px;width:13px;"></img></div>
+            <div class="task-card-footer-comment-content">{{=value.comment_count}}</div>
+            <div class="task-card-footer-bid"><img src="../image/Trealent/bid.png" style="height:13px;width:13px;"></img></div>
+            <div class="task-card-footer-bid-content">{{=value.now_member_num}}/{{=value.require_member_num}}</div>
+            <div class="tast-card-content-footer-right">
+          </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+{{~}}
+{{? index==9}}
+    <div class="aui-text-center aui-card-list-footer aui-card-list-more">加载更多</div>
+{{??}}
+    <div class="aui-text-center aui-card-list-footer aui-card-list-more">没了欸~</div>
+{{?}}
+</div>
+</script>
+
+<script id="tpl-list-taskcardMore" type="text/dot-tpl">
+<div class="{{= (it.length>0?'addons':'addonsover')}}">
+{{~it:value:index}}
+<div class="aui-content-padded task-card" id="{{=value.id}}" onclick="openDetailWin(this.id)">
+    <div class="aui-col-xs-5">
+      <div class="task-card-img"></div>
+    </div>
+    <div class="aui-col-xs-7">
+      <div class="task-card-content">
+        <div class="task-card-content-title aui-ellipsis-1">{{=value.title}}</div>
+        <div class="task-card-content-body aui-ellipsis-2">
+          {{=value.desc}}<br>
+        </div>
+        <div class="task-card-type">
+          <div class="task-card-button background-green"><div>&nbsp;{{value.type_id)}}&nbsp;</div></div>
+          <div class="task-card-time">{{=value.create_time}}</div>
+        </div>
+        <div class="task-card-content-footer">
+          <div class="task-card-footer-left">
+            <div class="demander-avator">
+              <img src="{{=value.demander.avatar}}"></img>
+            </div>
+            <div class="demander-name">{{=value.demander.username}}</div>
+          </div>
+          <div class="task-card-footer-right">
+            <div class="task-card-footer-comment"><img src="../image/Trealent/comment.png" style="height:13px;width:13px;"></img></div>
+            <div class="task-card-footer-comment-content">{{=value.comment_count}}</div>
+            <div class="task-card-footer-bid"><img src="../image/Trealent/bid.png" style="height:13px;width:13px;"></img></div>
+            <div class="task-card-footer-bid-content">{{=value.now_member_num}}/{{=value.require_member_num}}</div>
+            <div class="tast-card-content-footer-right">
+          </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+{{~}}
+{{? index==9}}
+    <div class="aui-text-center aui-card-list-footer aui-card-list-more">加载更多</div>
+{{??}}
+    <div class="aui-text-center aui-card-list-footer aui-card-list-more">没了欸~</div>
+{{?}}
+</div>
+</script>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/aui-tab.js" ></script>
+<script type="text/javascript" src="../script/aui-toast.js"></script>
+<script type="text/javascript" src="../script/aui-scroll.js" ></script>
+<script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="../script/trealent-client.js"></script>
+<script type="text/javascript">
+    var hallCardPage=1;
+    var scroll = new auiScroll({
+        listen:true,
+        distance:50 //判断到达底部的距离，isToBottom为true
+    },function(ret){
+        if(ret.isToBottom){
+            //document.getElementById("demo").textContent = "已到达底部";
+            bottomPullRefresh();
+        }else{
+            //
+        }
+
+    });
+  apiready=function(){
+    api.parseTapmode();
+    api.setRefreshHeaderInfo({
+        loadingImg: 'widget://image/freshloading.png',
+        bgColor: '#f5f5f5',
+        textColor: '#BCBCBC',
+        textDown: '下拉刷新...',
+        textUp: '松开刷新...',
+        textLoading : '拼命加载中~~',
+    }, function(ret, err) {
+        //在这里从服务器加载数据，加载完成后调用api.refreshHeaderLoadDone()方法恢复组件到默认状态
+        refreshHall();
+        api.refreshHeaderLoadDone();
+    });
+    initList();
+  }
+
+
+  function initList(){
+    tlClient.task.get_task_list(4,function(ret,err){
+      if(ret&&ret.code==200){
+      var interText = doT.template($("#tpl-list-taskcard").text());
+      $("#list-taskcard").after(interText(ret.data));
+      $("#card-box").attr("id","freshCard");
+        hallCardPage++;
+    }
+    else if(ret&&ret.code==401){
+      api.toast({
+          msg: ret.msg,
+          duration: 2000,
+          location: 'bottom'
+      });
+
+    }
+    else{
+      api.toast({
+          msg: '网络错误',
+          duration: 2000,
+          location: 'bottom'
+      });
+
+    }
+
+    })
+    setTimeout(function(){$("#loading-mask").fadeOut(600,function(){})},500);
+  }
+  function refreshHall(){
+    tlClient.task.get_task_list(4,function(ret,err){
+      var interText = doT.template($("#tpl-list-taskcard").text());
+      $("#freshCard").attr("id","freshCardRemove");
+      $("#freshCardRemove").fadeOut(300,function(){
+        $("#freshCardRemove").remove();
+        $("#list-taskcard").after(interText(ret.data));
+        $("#card-box").attr("id","freshCard");
+      });
+    })
+    hallCardPage=2;
+  }
+  function bottomPullRefresh(){
+      if($(".aui-card-list-more").text()=="加载更多"){
+          $(".aui-card-list-more").text("拼命加载中...");
+          bottomFresh();
+      }
+  }
+  function bottomFresh(){
+    tlClient.task.get_task_list(4,hallCardPage++,function(ret,err){
+      $(".aui-card-list-more").remove();
+      var EncodeText = doT.template($("#tpl-list-taskcardMore").text());
+      $("#freshCard").append(EncodeText(ret.data));
+      api.parseTapmode();
+    })
+  }
+  function type_return(type){
+    switch (type) {
+      case 1:
+        return {
+          'type':"设计",
+          'bgColor':"#7be0c0"
+        };
+        break;
+      case 2:
+        return {
+          'type':"开发",
+          'bgColor':"#FCC58B"
+        };
+        break;
+      case 3:
+        return {
+          'type':"多媒体",
+          'bgColor':"#FA9B9F"
+        };
+        break;
+      case 4:
+        return {
+          'type':"文案",
+          'bgColor':"#7be0c0"
+        };
+        break;
+      default:
+    }
+  }
+
+  function openDetailWin(taskId){
+    api.openWin({
+        name: 'detailWin',
+        url: './detail_win.html',
+        pageParam: {
+            task_id: taskId
+        },
+    });
+
+ }
+</script>
+</html>

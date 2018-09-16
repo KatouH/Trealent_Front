@@ -1,0 +1,325 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>AUI快速完成布局</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <style>
+        #inner-padding{
+            display: block;
+            width: 100%;
+            height: 0;
+        }
+
+    </style>
+</head>
+<body>
+    <section class="aui-chat" id="scrolldIV">
+        <div class="aui-chat-header">2016年7月13日</div>
+        <div class="aui-chat-item aui-chat-left">
+            <div class="aui-chat-media" tapmode onclick="recieveMsg()">
+                <img src="../image/demo2.png" />
+            </div>
+            <div class="aui-chat-inner">
+                <div class="aui-chat-name">AUI <span class="aui-label aui-label-warning">2.0</span></div>
+                <div class="aui-chat-content">f
+                    <div class="aui-chat-arrow"></div>
+                    Hello AUI 2.0!
+                </div>
+                <div class="aui-chat-status aui-chat-status-refresh">
+                    <i class="aui-iconfont aui-icon-correct aui-text-success"></i>
+                </div>
+            </div>
+        </div>
+        <div class="aui-chat-item aui-chat-right">
+            <div class="aui-chat-media">
+                <img src="../image/liulangnan.png" />
+            </div>
+            <div class="aui-chat-inner">
+                <div class="aui-chat-name">流浪男</div>
+                <div class="aui-chat-content">
+                    <div class="aui-chat-arrow"></div>
+                    你好！
+                </div>
+                <div class="aui-chat-status">
+                    <i class="aui-iconfont aui-icon-info aui-text-danger"></i>
+                </div>
+            </div>
+        </div>
+        <div id="tpl-tasklist" ></div>
+    </section>
+    <div id="inner-padding"></div>
+</body>
+<script type="text/javascript" src="../script/doT.min.js" ></script>
+<script type="text/javascript" src="../script/jquery-3.3.1.min.js" ></script>
+<script id="tpl-sendMsg" type="text/dot-tpl">
+        <div class="aui-chat-item aui-chat-right">
+            <div class="aui-chat-media">
+                <img src="{{=user_avatar}}"/>
+            </div>
+            <div class="aui-chat-inner">
+                <div class="aui-chat-name">{{=user_name}} <span class="aui-label aui-label-warning">2.0</span></div>
+                <div class="aui-chat-content">
+                    <div class="aui-chat-arrow"></div>
+                    {{=it}}
+                </div>
+            </div>
+        </div>
+</script>
+<script id="tpl-recieveMsg" type="text/dot-tpl">
+        <div class="aui-chat-item aui-chat-left">
+            <div class="aui-chat-media">
+                <img src="../image/demo2.png"/>
+            </div>
+            <div class="aui-chat-inner">
+                <div class="aui-chat-name">AUI <span class="aui-label aui-label-warning">2.0</span></div>
+                <div class="aui-chat-content">
+                    <div class="aui-chat-arrow"></div>
+                    {{=it}}
+                </div>
+            </div>
+        </div>
+</script>
+<script id="tpl-historyMsg" type="text/dot-tpl">
+{{~it.result:value:index}}
+      {{? value.messageDirection=="SEND"}}
+        <div class="aui-chat-item aui-chat-right">
+            <div class="aui-chat-media">
+                <img src="{{=user_avatar}}"/>
+            </div>
+            <div class="aui-chat-inner">
+                <div class="aui-chat-name">{{=user_name}} <span class="aui-label aui-label-warning">2.0</span></div>
+                <div class="aui-chat-content">
+                    <div class="aui-chat-arrow"></div>
+                    {{=value.content.text}}
+                </div>
+            </div>
+        </div>
+
+        {{??}}
+          <div class="aui-chat-item aui-chat-left">
+              <div class="aui-chat-media">
+                  <img src="../image/demo2.png"/>
+              </div>
+              <div class="aui-chat-inner">
+                  <div class="aui-chat-name">AUI <span class="aui-label aui-label-warning">2.0</span></div>
+                  <div class="aui-chat-content">
+                      <div class="aui-chat-arrow"></div>
+                      {{=value.content.text}}
+                  </div>
+              </div>
+          </div>
+          {{?}}
+{{~}}
+</script>
+<script type="text/javascript" src="../script/api.js" ></script>
+<script type="text/javascript">
+
+  var lastOriginLineUpPosition = 0;
+  var lastOriginStatus = 0;
+  var lastOriginWinHeight = 0;
+  var lastRememberBoxPos = 0;
+  var user_name=$api.getStorage('trealent_user_username');
+  var user_avatar=$api.getStorage('trealent_user_avatar');
+  apiready=function(){
+    var UIChatBox = api.require('UIChatBox');
+
+    UIChatBox.open({
+        placeholder: '',
+        maxRows: 4,
+        emotionPath: 'widget://res/img/emotion',
+        texts: {
+            recordBtn: {
+                activeTitle: '松开结束'
+            },
+            sendBtn: {
+                title: '发送'
+            }
+        },
+        styles: {
+            inputBar: {
+                borderColor: '#d9d9d9',
+                bgColor: '#f2f2f2'
+            },
+            inputBox: {
+                borderColor: '#B3B3B3',
+                bgColor: '#FFFFFF'
+            },
+            emotionBtn: {
+                normalImg: 'widget://image/Trealent/smile.png'
+            },
+            extrasBtn: {
+                normalImg: 'widget://image/Trealent/input_plus.png'
+            },
+            keyboardBtn: {
+                normalImg: 'widget://image/Trealent/keyboard.png'
+            },
+            speechBtn: {
+                normalImg: 'widget://image/Trealent/microphone.png',
+            },
+            recordBtn: {
+                normalBg: '#c4c4c4',
+                activeBg: '#999999',
+                color: '#000',
+                size: 14
+            },
+            indicator: {
+                target: 'both',
+                color: '#c4c4c4',
+                activeColor: '#9e9e9e'
+            },
+            sendBtn: {
+                titleColor: '#fff',
+                bg: '#1595EF',
+                activeBg: '#1595EF',
+                titleSize: 12
+            }
+        },
+        extras: {
+            titleSize: 10,
+            titleColor: '#a3a3a3',
+            isAdaptScreenSize:true,
+            btns: [{
+                title: '图片',
+                normalImg: 'widget://image/Trealent/photo.png'
+            }, {
+                title: '拍照',
+                normalImg: 'widget://image/Trealent/input_camera.png'
+            }]
+        }
+    }, function(ret, err) {
+        switch (ret.eventType) {
+          case "show":
+            break;
+          case "send":
+            MsgDom(ret.msg,"send");
+            sendMsg(ret.msg);
+            break;
+          case "clickExtras":
+            break;
+          default:
+        }
+    });
+      UIChatBox.addEventListener({
+          target: 'inputBar',
+          name: 'move'
+      }, function(ret, err) {
+        scrollViewBar(ret.inputBarHeight, ret.panelHeight);
+      });
+      initHistoryMsg();
+    }
+
+
+
+    function initHistoryMsg(){
+      var rong = api.require('rongCloud2');
+      var user_id=$api.getStorage("trealent_user_id");
+      var target_id=api.pageParam.sender_id;
+      // 之前调用 init 和 connect 的代码省略
+      rong.getHistoryMessages({
+          conversationType: 'PRIVATE',
+          targetId: ''+target_id+'',
+          oldestMessageId: 1000,
+          count: 20
+      }, function(ret, err) {
+        var interText = doT.template($("#tpl-historyMsg").text());
+        ret.result.reverse();
+        var recieve={
+
+        }
+        for(x in ret.result){
+            ret.result[x]=mergeJsonObject(ret.result[x],recieve);
+        }
+        $("#tpl-tasklist").append(interText(ret));
+        window.scrollTo(0,document.body.scrollHeight);
+      })
+    }
+
+
+    function MsgDom(body,type){
+      if(type=="send"){
+        var interText = doT.template($("#tpl-sendMsg").text());
+        $("#tpl-tasklist").append(interText(body));
+        var new_msgH=$("#tpl-sendMsg").height();
+      }else {
+        var interText = doT.template($("#tpl-recieveMsg").text());
+        $("#tpl-tasklist").append(interText(body));
+        var new_msgH=$("#tpl-recieveMsg").height();
+      }
+        scrollView(new_msgH);
+    }
+
+    function scrollView(new_msgH){
+            if(api.systemType == "ios"){
+                $('html, body').animate({scrollTop: lastOriginWinHeight + new_msgH}, 200);
+            }else{
+                var h = $(document).height()-$(window).height() - lastRememberBoxPos +50;
+                $('html, body').animate({scrollTop: h}, 200);
+            }
+    }
+
+    function scrollViewBar(a, b){
+        lastRememberBoxPos = b;
+        $("body, html").css("padding-bottom", b+"px");
+        var oriHeight =  $(window).scrollTop();
+        if(b>0){
+            if(lastOriginStatus == 0){
+                lastOriginLineUpPosition = oriHeight;
+                lastOriginStatus = 1;
+                lastOriginWinHeight = $("html").height();
+            }
+            $("html,body").scrollTop(lastOriginLineUpPosition+b);
+        }else{
+            lastOriginStatus = 0;
+            $("html,body").scrollTop(lastOriginLineUpPosition);
+        }
+    }
+
+
+    function sendMsg(content){
+      var user_id=$api.getStorage("trealent_user_id");
+      var target_id=0;
+      if(user_id==3){
+        target_id=4;
+      }
+      else if(user_id==4){
+        target_id=3;
+      }
+    target_id.toString();
+    var rong = api.require('rongCloud2');
+
+    // 之前调用 init 和 connect 的代码省略
+    rong.sendTextMessage({
+        conversationType: 'PRIVATE',
+        targetId: ''+target_id+'',
+        text: content,
+        extra: ''
+    }, function(ret, err) {
+        if (ret.status == 'prepare');
+            //api.toast({ msg: JSON.stringify(ret.result.message) });
+        else if (ret.status == 'success')
+            api.toast({ msg: "发送成功"+ret.result.message.messageId });
+        else if (ret.status == 'error')
+            api.toast({ msg: err.code });
+    });
+  }
+    function recieveMsg(content){
+      MsgDom(content,"recieve");
+    }
+
+
+
+    function mergeJsonObject(jsonbject1, jsonbject2) {
+          var resultJsonObject={};
+          for(var attr in jsonbject1){
+            resultJsonObject[attr]=jsonbject1[attr];
+          }
+          for(var attr in jsonbject2){
+            resultJsonObject[attr]=jsonbject2[attr];
+          }
+          return resultJsonObject;
+    };
+</script>
+</html>
